@@ -1,8 +1,8 @@
 {
     "name": "package-url/packageurl-php",
-    "description": "PHP implementation of the package url spec",
+    "description": "A parser and builder based on the package url spec.",
     "readme": "README.md",
-    "keywords": ["packageurl", "purl"],
+    "keywords": ["package-url", "package", "url", "packageurl" ,"purl"],
     "license": "MIT",
     "homepage": "https://github.com/package-url/packageurl-php",
     "support": {
@@ -10,7 +10,7 @@
     },
     "authors": [
         {
-            "name": "jowalleck",
+            "name": "Jan Kowalleck",
             "role": "Developer"
         }
     ],
