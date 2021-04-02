@@ -1,5 +1,5 @@
 # Changes
 
-## unreleased
+## 1.0.0
 
-* first implementation
+* First implementation

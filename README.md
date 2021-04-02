@@ -10,7 +10,7 @@ License: MIT
 Unless a stable version is tagged, you need to install via
 
 ```shell
-composer require 'package-url/packageurl-php:dev-main'
+composer require package-url/packageurl-php
 ```
 
 ## Usage
