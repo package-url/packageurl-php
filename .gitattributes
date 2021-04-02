@@ -20,4 +20,4 @@
 /.php_cs.dist       export-ignore
 /phpunit.xml.dist   export-ignore
 /psalm.xml.dist     export-ignore
-/HIStORY.md         export-ignore
+/HISTORY.md         export-ignore
