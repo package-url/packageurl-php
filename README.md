@@ -1,3 +1,9 @@
+[![shield_gh-workflow-test]][link_gh-workflow-test]
+[![shield_packagist-version]][link_packagist]
+[![shield_license]][license_file] 
+
+----
+
 # Package URL (purl) for PHP
 
 A parser and builder based on the [package url spec]
@@ -5,7 +11,7 @@ implemented for PHP.
 
 License: MIT
 
-## install
+## Install
 
 Unless a stable version is tagged, you need to install via
 
@@ -40,7 +46,7 @@ $purl2 = PackageUrl::fromString($purlString);
 var_dump($purl == $purl2);
 ```
 
-### Run tests
+## Run tests
 
 install setup and tools:
 
@@ -61,3 +67,12 @@ composer test
 ```
 
 [package url spec]: https://github.com/package-url/purl-spec
+
+[license_file]: https://github.com/package-url/packageurl-php/blob/main/LICENSE
+
+[shield_gh-workflow-test]: https://img.shields.io/github/workflow/status/package-url/packageurl-php/PHP%20CI/main?logo=GitHub&logoColor=white "build"
+[shield_packagist-version]: https://img.shields.io/packagist/v/package-url/packageurl-php?logo=&logoColor=white "packagist"
+[shield_license]: https://img.shields.io/github/license/package-url/packageurl-php "license"
+[link_gh-workflow-test]: https://github.com/package-url/packageurl-php/actions?workflow=PHP+CI
+[link_packagist]: https://packagist.org/packages/package-url/packageurl-php
+ 
