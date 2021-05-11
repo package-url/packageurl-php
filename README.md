@@ -1,6 +1,6 @@
 [![shield_gh-workflow-test]][link_gh-workflow-test]
 [![shield_packagist-version]][link_packagist]
-[![shield_license]][license_file] 
+[![shield_license]][license_file]
 
 ----
 
@@ -12,8 +12,6 @@ implemented for PHP.
 License: MIT
 
 ## Install
-
-Unless a stable version is tagged, you need to install via
 
 ```shell
 composer require package-url/packageurl-php
@@ -75,4 +73,3 @@ composer test
 [shield_license]: https://img.shields.io/github/license/package-url/packageurl-php "license"
 [link_gh-workflow-test]: https://github.com/package-url/packageurl-php/actions?workflow=PHP+CI
 [link_packagist]: https://packagist.org/packages/package-url/packageurl-php
- 
