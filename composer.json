@@ -39,15 +39,15 @@
     },
     "scripts": {
         "dev-setup": [
-            "@composer install -dtools/composer-require-checker",
-            "@composer install -dtools/composer-unused",
-            "@composer install -dtools/php-cs-fixer",
-            "@composer install -dtools/psalm",
-            "@composer install"
+            "@composer update -dtools/composer-require-checker",
+            "@composer update -dtools/composer-unused",
+            "@composer update -dtools/php-cs-fixer",
+            "@composer update -dtools/psalm",
+            "@composer update"
         ],
         "test:composer-require-checker": "@php tools/composer-require-checker/vendor/maglnet/composer-require-checker/bin/composer-require-checker",
         "test:composer-unused": "@php tools/composer-unused/vendor/icanhazstring/composer-unused/bin/composer-unused",
-        "test:cs-fixer": "@php tools/php-cs-fixer/vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --dry-run --diff-format=udiff",
+        "test:cs-fixer": "@php tools/php-cs-fixer/vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --dry-run --diff",
         "test:psalm": "@php tools/psalm/vendor/vimeo/psalm/psalm" ,
         "test:phpunit": "phpunit",
         "test": [
@@ -58,7 +58,7 @@
             "@test:composer-require-checker",
             "@test:composer-unused"
         ],
-        "cs-fix": "@php tools/php-cs-fixer/vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --diff-format=udiff"
+        "cs-fix": "@php tools/php-cs-fixer/vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --diff"
     },
     "scripts-descriptions": {
         "dev-setup": "Install dev-requirements and tools",
