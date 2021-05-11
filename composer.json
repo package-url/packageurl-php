@@ -39,11 +39,11 @@
     },
     "scripts": {
         "dev-setup": [
-            "@composer install -dtools/composer-require-checker",
-            "@composer install -dtools/composer-unused",
-            "@composer install -dtools/php-cs-fixer",
-            "@composer install -dtools/psalm",
-            "@composer install"
+            "@composer update -dtools/composer-require-checker",
+            "@composer update -dtools/composer-unused",
+            "@composer update -dtools/php-cs-fixer",
+            "@composer update -dtools/psalm",
+            "@composer update"
         ],
         "test:composer-require-checker": "@php tools/composer-require-checker/vendor/maglnet/composer-require-checker/bin/composer-require-checker",
         "test:composer-unused": "@php tools/composer-unused/vendor/icanhazstring/composer-unused/bin/composer-unused",
