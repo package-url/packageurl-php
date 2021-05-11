@@ -1,14 +1,16 @@
 {
     "name": "tools/psalm",
     "description": "psalm and plugins",
-    "type": "project",
+    "type": "metapackage",
     "config": {
         "preferred-install": "dist",
         "sort-packages": true
     },
     "prefer-stable": true,
     "require": {
-        "roave/security-advisories": "dev-latest",
+        "roave/security-advisories": "dev-latest"
+    },
+    "require-dev": {
         "vimeo/psalm": "4.6.2"
     }
 }
