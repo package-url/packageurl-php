@@ -43,7 +43,7 @@ class PackageUrlTest extends TestCase
     /** @var PackageUrl */
     private $sut;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $randomString = bin2hex(random_bytes(255));
         $this->sut = (new PackageUrl($randomString, $randomString))
@@ -282,7 +282,7 @@ class PackageUrlTest extends TestCase
         // act
         $purl = $this->sut::fromString($purlString, $parser);
         // assert
-        self::assertInstanceOf(get_class($this->sut), $purl);
+        self::assertInstanceOf(\get_class($this->sut), $purl);
         self::assertEquals($purlNormalized['type'], $purl->getType());
         self::assertEquals($purlNormalized['namespace'], $purl->getNamespace());
         self::assertEquals($purlNormalized['name'], $purl->getName());
@@ -311,7 +311,7 @@ class PackageUrlTest extends TestCase
     public function testAsString(): void
     {
         $expected = bin2hex(random_bytes(32));
-        $sut = $this->createPartialMock(get_class($this->sut), ['toString']);
+        $sut = $this->createPartialMock(\get_class($this->sut), ['toString']);
         $sut->expects(self::once())->method('toString')->willReturn($expected);
         $toString = (string) $sut;
         self::assertEquals($expected, $toString);

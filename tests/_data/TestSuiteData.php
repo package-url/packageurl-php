@@ -65,7 +65,7 @@ abstract class TestSuiteData
      */
     public static function data(): Generator
     {
-        $testSuite = json_decode(file_get_contents(__DIR__.'/../_examples/test-suite-data.json'), true, 521, JSON_THROW_ON_ERROR);
+        $testSuite = json_decode(file_get_contents(__DIR__.'/../_examples/test-suite-data.json'), true, 521, \JSON_THROW_ON_ERROR);
         foreach ($testSuite as $data) {
             yield $data['description'] => [$data];
         }

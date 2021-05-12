@@ -186,7 +186,7 @@ class PackageUrl
      */
     public function setQualifiers(?array $qualifiers): self
     {
-        if ($qualifiers && array_key_exists(self::CHECKSUM_QUALIFIER, $qualifiers)) {
+        if ($qualifiers && \array_key_exists(self::CHECKSUM_QUALIFIER, $qualifiers)) {
             throw new DomainException('Checksums must not be part of the qualifiers. Use setChecksums().');
         }
         $this->qualifiers = $qualifiers;

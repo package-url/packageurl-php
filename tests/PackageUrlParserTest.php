@@ -45,7 +45,7 @@ class PackageUrlParserTest extends TestCase
     /** @var PackageUrlParser */
     private $sut;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->sut = new PackageUrlParser();
     }
