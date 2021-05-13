@@ -1,5 +1,11 @@
 # Changes
 
+## 1.0.3
+
+Maintenance release:
+* Misc
+  * removed `php-cs-fixer` config from dist-release.
+
 ## 1.0.2
 
 Maintenance release:
