@@ -168,7 +168,7 @@ class PackageUrlBuilder
 
         $segments = [];
 
-        $data = array_change_key_case($data, CASE_LOWER);
+        $data = array_change_key_case($data, \CASE_LOWER);
 
         $checksum = $this->normalizeChecksum($data[PackageUrl::CHECKSUM_QUALIFIER] ?? null);
         unset($data[PackageUrl::CHECKSUM_QUALIFIER]);
@@ -190,7 +190,7 @@ class PackageUrlBuilder
             $segments[] = PackageUrl::CHECKSUM_QUALIFIER.'='.$checksum;
         }
 
-        sort($segments, SORT_STRING);
+        sort($segments, \SORT_STRING);
         $qualifiers = implode('&', $segments);
 
         return '' === $qualifiers
@@ -207,9 +207,9 @@ class PackageUrlBuilder
         if (null === $data) {
             return null;
         }
-        if (is_string($data)) {
+        if (\is_string($data)) {
             $data = explode(',', $data);
-        } elseif (!is_array($data)) {
+        } elseif (!\is_array($data)) {
             return null;
         }
 
@@ -276,7 +276,7 @@ class PackageUrlBuilder
             rawurlencode($data),
             self::RAWURLENCODE_REVERT
         );
-        assert('' !== $encoded);
+        \assert('' !== $encoded);
 
         return $encoded;
     }

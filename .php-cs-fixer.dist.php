@@ -43,6 +43,7 @@ return $config
     ->setRules([
         '@PHP73Migration' => true,
         '@Symfony' => true,
+        '@Symfony:risky' => true,
         'declare_strict_types' => true,
         'phpdoc_order' => true,
         'header_comment' => ['header' => $header],

@@ -47,7 +47,7 @@ class PackageUrlBuilderTest extends TestCase
     /** @var PackageUrlBuilder */
     private $sut;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->sut = new PackageUrlBuilder();
     }

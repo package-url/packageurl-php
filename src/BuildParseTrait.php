@@ -51,7 +51,7 @@ trait BuildParseTrait
      */
     private function isUsefulSubpathSegment(string $segment): bool
     {
-        return false === in_array($segment, ['', '.', '..'], true);
+        return false === \in_array($segment, ['', '.', '..'], true);
     }
 
     /**
@@ -62,7 +62,7 @@ trait BuildParseTrait
         if (null !== $type) {
             $type = strtolower($type);
         }
-        if (in_array($type, ['bitbucket', 'deb', 'github', 'golang', 'hex', 'rpm'], true)) {
+        if (\in_array($type, ['bitbucket', 'deb', 'github', 'golang', 'hex', 'rpm'], true)) {
             return static function (string $data): string {
                 return strtolower($data);
             };
@@ -92,7 +92,7 @@ trait BuildParseTrait
             $name = str_replace('_', '-', $name);
         }
 
-        if (in_array($type, ['bitbucket', 'deb', 'github', 'golang', 'hex', 'npm', 'pypi'], true)) {
+        if (\in_array($type, ['bitbucket', 'deb', 'github', 'golang', 'hex', 'npm', 'pypi'], true)) {
             $name = strtolower($name);
         }
 

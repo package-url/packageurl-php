@@ -233,7 +233,7 @@ class PackageUrlParser
                 continue;
             }
             $key = strtolower(substr($dataKeyValue, 0, $eqPos));
-            assert('' !== $key);
+            \assert('' !== $key);
             $qualifiers[$key] = $value;
         }
 
