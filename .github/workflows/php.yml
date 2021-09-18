@@ -26,17 +26,20 @@ jobs:
         include:
           - name: Linux
             os: ubuntu-latest
-            php: '8.0' # highest supported
+            php: '8.1' # highest supported
           - name: Windows
             os: windows-latest
-            php: '8.0' # highest supported
+            php: '8.1' # highest supported
           - name: MacOs
             os: macos-latest
-            php: '8.0' # highest supported
-          - name: '7.4'
+            php: '8.1' # highest supported
+          - name: 'php 8.0'
             os: ubuntu-latest
             php: '7.4'
-          - name: '7.3'
+          - name: 'php 7.4'
+            os: ubuntu-latest
+            php: '7.4'
+          - name: 'php 7.3'
             os: ubuntu-latest
             php: '7.3' # lowest supported
     timeout-minutes: 30
@@ -97,7 +100,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ["7.3", "8.0"] # highest and lowest supported
+        php:
+          - '8.1' # highest supported
+          - '7.3' # lowest supported
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
@@ -152,7 +157,7 @@ jobs:
         # see https://github.com/shivammathur/setup-php
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.0"
+          php-version: "8.1"
           tools: composer
           coverage: none
       - name: Install PHP-CS-Fixer
@@ -192,7 +197,7 @@ jobs:
         # see https://github.com/shivammathur/setup-php
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.0"
+          php-version: "8.1"
           tools: composer
           coverage: none
       - name: Install composer-require-checker
