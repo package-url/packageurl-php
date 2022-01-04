@@ -44,29 +44,15 @@ $purl2 = PackageUrl::fromString($purlString);
 var_dump($purl == $purl2);
 ```
 
-## Run tests
+## Contributing
 
-install setup and tools:
-
-```shell
-composer dev-setup
-```
-
-fix code styles:
-
-```shell
-composer cs-fix
-```
-
-run tests:
-
-```shell
-composer test
-```
+Feel free to open pull requests.  
+See the [contribution docs][contributing_file] for details.
 
 [package url spec]: https://github.com/package-url/purl-spec
 
 [license_file]: https://github.com/package-url/packageurl-php/blob/main/LICENSE
+[contributing_file]: https://github.com/package-url/packageurl-php/blob/main/CONTRIBUTING.md
 
 [shield_gh-workflow-test]: https://img.shields.io/github/workflow/status/package-url/packageurl-php/PHP%20CI/main?logo=GitHub&logoColor=white "build"
 [shield_packagist-version]: https://img.shields.io/packagist/v/package-url/packageurl-php?logo=&logoColor=white "packagist"
