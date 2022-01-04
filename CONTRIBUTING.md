@@ -4,6 +4,9 @@ Feel free to open pull requests.
 
 ## Setup 
 
+Even though the code base itself is php 7.3 compatible
+the setup of this project for development purposes requires php >= 7.4.
+
 To start developing simply run `composer run-script dev-setup` to install dev-dependencies and tools.
 
 ## Tests
