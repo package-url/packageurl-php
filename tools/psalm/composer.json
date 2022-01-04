@@ -2,18 +2,16 @@
     "name": "tools/psalm",
     "description": "psalm and plugins",
     "type": "metapackage",
-    "config": {
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "allow-plugins": {
-            "composer/package-versions-deprecated": false
-        }
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "vimeo/psalm": "4.17.0"
     },
     "prefer-stable": true,
-    "require": {
-        "roave/security-advisories": "dev-latest"
-    },
-    "require-dev": {
-        "vimeo/psalm": "4.17.0"
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": false
+        },
+        "preferred-install": "dist",
+        "sort-packages": true
     }
 }
