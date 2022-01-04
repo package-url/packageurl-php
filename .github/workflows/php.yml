@@ -13,6 +13,9 @@ on:
     # this means: at 23:42 on Fridays
     - cron: '42 23 * * 5'
 
+env:
+  PHP_VERSION_LATEST: "8.1"
+
 jobs:
   tests:
     name: ${{ matrix.name }}
@@ -63,7 +66,7 @@ jobs:
           --no-interaction
       - name: Install dependencies
         run: >
-          composer update
+          composer install
           --prefer-dist
           --no-interaction
           --no-progress
@@ -117,14 +120,14 @@ jobs:
       - name: Install psalm
         run: >
           composer install
-          -dtools/psalm
           --prefer-dist
           --no-interaction
           --no-progress
           --no-suggest
+        working-directory: tools/psalm
       - name: Install dependencies
         run: >
-          composer update
+          composer install
           --no-dev
           --prefer-dist
           --no-interaction
@@ -157,20 +160,20 @@ jobs:
         # see https://github.com/shivammathur/setup-php
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.1"
+          php-version: ${{ env.PHP_VERSION_LATEST }}
           tools: composer
           coverage: none
       - name: Install PHP-CS-Fixer
         run: >
           composer install
-          -dtools/php-cs-fixer
           --prefer-dist
           --no-interaction
           --no-progress
           --no-suggest
+        working-directory: tools/php-cs-fixer
       - name: Install dependencies
         run: >
-          composer update
+          composer install
           --no-dev
           --prefer-dist
           --no-interaction
@@ -197,20 +200,20 @@ jobs:
         # see https://github.com/shivammathur/setup-php
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.1"
+          php-version: ${{ env.PHP_VERSION_LATEST }}
           tools: composer
           coverage: none
       - name: Install composer-require-checker
         run: >
           composer install
-          -dtools/composer-require-checker
           --prefer-dist
           --no-interaction
           --no-progress
           --no-suggest
+        working-directory: tools/composer-require-checker
       - name: Install dependencies
         run: >
-          composer update
+          composer install
           --no-dev
           --prefer-dist
           --no-interaction
@@ -232,20 +235,20 @@ jobs:
         # see https://github.com/shivammathur/setup-php
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.1"
+          php-version: ${{ env.PHP_VERSION_LATEST }}
           tools: composer
           coverage: none
       - name: Install composer-require-checker
         run: >
           composer install
-          -dtools/composer-unused
           --prefer-dist
           --no-interaction
           --no-progress
           --no-suggest
+        working-directory: tools/composer-unused
       - name: Install dependencies
         run: >
-          composer update
+          composer install
           --no-dev
           --prefer-dist
           --no-interaction
@@ -256,3 +259,36 @@ jobs:
           php tools/composer-unused/vendor/icanhazstring/composer-unused/bin/composer-unused
           --no-progress
           --no-interaction
+  composer-normalize:
+    name: Composer normalize
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        # see https://github.com/actions/checkout
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        # see https://github.com/shivammathur/setup-php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION_LATEST }}
+          tools: composer
+          coverage: none
+      - name: Install composer-normalize
+        run: >
+          composer install
+          --prefer-dist
+          --no-interaction
+          --no-progress
+          --no-suggest
+        working-directory: tools/composer-normalize
+      - name: Run composer-normalize tests
+        run: >
+          composer -dtools/composer-normalize
+          normalize
+          --dry-run
+          --diff
+          --no-check-lock
+          --no-update-lock
+          --no-interaction
+          $PWD/composer.json

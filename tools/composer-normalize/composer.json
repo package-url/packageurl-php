@@ -1,13 +1,16 @@
 {
-    "name": "tools/php-cs-fixer",
-    "description": "php-cs-fixer",
+    "name": "tools/composer-normalize",
+    "description": "composer-normalize",
     "type": "metapackage",
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "3.4.0",
+        "ergebnis/composer-normalize": "2.20",
         "roave/security-advisories": "dev-latest"
     },
     "prefer-stable": true,
     "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        },
         "preferred-install": "dist",
         "sort-packages": true
     }
