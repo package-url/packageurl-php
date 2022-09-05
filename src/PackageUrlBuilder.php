@@ -92,6 +92,7 @@ class PackageUrlBuilder
 
     /**
      * @psalm-param non-empty-string $data
+     *
      * @psalm-return non-empty-string
      */
     public function normalizeType(string $data): string
@@ -158,6 +159,7 @@ class PackageUrlBuilder
      * Can handle "checksum" as string or list of strings.
      *
      * @psalm-param mixed[]|null $data
+     *
      * @psalm-return non-empty-string|null
      */
     public function normalizeQualifiers(?array $data): ?string
@@ -200,6 +202,7 @@ class PackageUrlBuilder
 
     /**
      * @psalm-param  mixed $data
+     *
      * @psalm-return non-empty-string|null
      */
     private function normalizeChecksum($data): ?string
@@ -268,6 +271,7 @@ class PackageUrlBuilder
 
     /**
      * @psalm-param non-empty-string $data
+     *
      * @psalm-return non-empty-string
      */
     private function encode(string $data): string

@@ -153,6 +153,7 @@ class PackageUrlBuilderTest extends TestCase
 
     /**
      * @dataProvider dpValidTestData
+     *
      * @psalm-param TDataSet $data
      */
     public function testBuild(array $data): void
