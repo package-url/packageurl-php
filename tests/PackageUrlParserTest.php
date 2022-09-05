@@ -127,6 +127,7 @@ class PackageUrlParserTest extends TestCase
 
     /**
      * @dataProvider \PackageUrl\Tests\_data\TestSuiteData::data
+     *
      * @psalm-param TDataSet $data
      */
     public function testParseAndNormalize(array $data): void

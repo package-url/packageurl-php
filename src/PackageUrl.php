@@ -53,6 +53,7 @@ class PackageUrl
 
     /**
      * @psalm-var TType
+     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
     private $type;
@@ -64,6 +65,7 @@ class PackageUrl
 
     /**
      * @psalm-var TName
+     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
     private $name;
@@ -100,6 +102,7 @@ class PackageUrl
 
     /**
      * @throws DomainException if value is empty
+     *
      * @psalm-return  $this
      */
     public function setType(string $type): self
@@ -140,6 +143,7 @@ class PackageUrl
 
     /**
      * @throws DomainException if value is empty
+     *
      * @psalm-return $this
      */
     public function setName(string $name): self
@@ -182,6 +186,7 @@ class PackageUrl
      * @psalm-param TQualifiers $qualifiers
      *
      * @throws DomainException if checksums are part of the qualifiers. Use setChecksums() to set these.
+     *
      * @psalm-return $this
      */
     public function setQualifiers(?array $qualifiers): self
@@ -204,6 +209,7 @@ class PackageUrl
 
     /**
      * @psalm-param TChecksums $checksums
+     *
      * @psalm-return $this
      */
     public function setChecksums(?array $checksums): self
@@ -282,6 +288,7 @@ class PackageUrl
 
     /**
      * @throws DomainException if the data is invalid according to the specification
+     *
      * @psalm-return static|null null when empty string is passed
      */
     public static function fromString(string $data, ?PackageUrlParser $parser = null): ?self
