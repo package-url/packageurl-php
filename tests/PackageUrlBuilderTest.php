@@ -29,7 +29,6 @@ declare(strict_types=1);
 
 namespace PackageUrl\Tests;
 
-use DomainException;
 use Generator;
 use PackageUrl\PackageUrlBuilder;
 use PackageUrl\Tests\_data\TestSuiteData;
@@ -88,7 +87,7 @@ class PackageUrlBuilderTest extends TestCase
 
     public function testNormalizeNameSlash(): void
     {
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/name .*empty/i');
         $this->sut->normalizeName('///', '');
     }
@@ -125,7 +124,7 @@ class PackageUrlBuilderTest extends TestCase
 
     public function testBuildEmptyType(): void
     {
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/type .*empty/i');
         $this->sut->build(
             '',
@@ -139,7 +138,7 @@ class PackageUrlBuilderTest extends TestCase
 
     public function testBuildEmptyName(): void
     {
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/name .*empty/i');
         $this->sut->build(
             'type',
@@ -174,7 +173,7 @@ class PackageUrlBuilderTest extends TestCase
     /**
      * @psalm-return Generator<non-empty-string, array{TDataSet}>
      */
-    public static function dpValidTestData(): Generator
+    public static function dpValidTestData(): \Generator
     {
         foreach (TestSuiteData::data() as $label => [$data]) {
             if (true === $data['is_invalid']) {
@@ -187,7 +186,7 @@ class PackageUrlBuilderTest extends TestCase
     /**
      * @psalm-return Generator<non-empty-string, array{string, string}>
      */
-    public static function dpNormalizeNamespace(): Generator
+    public static function dpNormalizeNamespace(): \Generator
     {
         yield 'empty/empty' => ['/', null];
         yield 'some Namespace' => ['some/Namespace', 'some/Namespace'];
@@ -199,7 +198,7 @@ class PackageUrlBuilderTest extends TestCase
     /**
      * @psalm-return Generator<non-empty-string, array{string, array<string, string>}>
      */
-    public static function dpStringsToEncoded(): Generator
+    public static function dpStringsToEncoded(): \Generator
     {
         yield 'some:string' => ['some:String', 'some:String'];
         yield 'some/string' => ['some/String', 'some/String'];
@@ -209,7 +208,7 @@ class PackageUrlBuilderTest extends TestCase
     /**
      * @psalm-return Generator<non-empty-string, array{null|array<string, null|string>, null|string}>
      */
-    public static function dpNormalizeQualifiers(): Generator
+    public static function dpNormalizeQualifiers(): \Generator
     {
         yield 'null' => [null, null];
         yield 'empty' => [[], null];
@@ -223,7 +222,7 @@ class PackageUrlBuilderTest extends TestCase
         yield 'multiple KVs' => [['k1' => 'v1', 'k2' => 'v2', 'k3' => '', 'k4' => null], 'k1=v1&k2=v2'];
     }
 
-    public static function dpNormalizeQualifiersChecksum(): Generator
+    public static function dpNormalizeQualifiersChecksum(): \Generator
     {
         yield 'checksum null' => [['checksum' => null], null];
         yield 'checksum empty string' => [['checksum' => ''], null];
@@ -236,7 +235,7 @@ class PackageUrlBuilderTest extends TestCase
     /**
      * @psalm-return Generator<non-empty-string, array{string, string}>
      */
-    public static function dpNormalizeSubpath(): Generator
+    public static function dpNormalizeSubpath(): \Generator
     {
         yield 'dot' => ['.', null];
         yield 'dot dot' => ['..', null];

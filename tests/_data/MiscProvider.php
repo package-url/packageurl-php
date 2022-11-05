@@ -36,7 +36,7 @@ abstract class MiscProvider
     /**
      * @psalm-return Generator<non-empty-string, array{non-empty-string, non-empty-string}>
      */
-    public static function stringsToLowercase(): Generator
+    public static function stringsToLowercase(): \Generator
     {
         yield 'lowercase' => ['something', 'something'];
         yield 'UPPERCASE' => ['SOMETHING', 'something'];
@@ -46,7 +46,7 @@ abstract class MiscProvider
     /**
      * @psalm-return Generator<non-empty-string, array{string|null, string|null}>
      */
-    public static function stringsEmptyAndNull(): Generator
+    public static function stringsEmptyAndNull(): \Generator
     {
         yield 'empty' => ['', null];
         yield 'null' => [null, null];
@@ -57,7 +57,7 @@ abstract class MiscProvider
      *
      * @psalm-return Generator<non-empty-string, array{string, string, non-empty-string}>
      */
-    public static function normalizeNamespaceSpecials(): Generator
+    public static function normalizeNamespaceSpecials(): \Generator
     {
         yield 'bitbucket: lowercase' => ['FoO', 'foo', 'bitbucket'];
         yield 'deb: lowercase' => ['FoO', 'foo', 'deb'];
@@ -72,7 +72,7 @@ abstract class MiscProvider
      *
      * @psalm-return Generator<non-empty-string, array{string, string, non-empty-string}>
      */
-    public static function normalizeNameSpecials(): Generator
+    public static function normalizeNameSpecials(): \Generator
     {
         yield 'bitbucket: lowercase' => ['FoO', 'foo', 'bitbucket'];
         yield 'deb: lowercase' => ['FoO', 'foo', 'deb'];

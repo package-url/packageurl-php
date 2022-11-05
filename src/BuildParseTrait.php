@@ -57,7 +57,7 @@ trait BuildParseTrait
     /**
      * @psalm-return Closure(non-empty-string):non-empty-string
      */
-    private function getNormalizerForNamespace(?string $type): Closure
+    private function getNormalizerForNamespace(?string $type): \Closure
     {
         if (null !== $type) {
             $type = strtolower($type);

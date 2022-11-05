@@ -163,7 +163,7 @@ class PackageUrlParserTest extends TestCase
     /**
      * @psalm-return Generator<non-empty-string, array{string, string}>
      */
-    public static function dpNormalizeNamespace(): Generator
+    public static function dpNormalizeNamespace(): \Generator
     {
         yield 'empty/empty' => ['/', null];
         yield 'some Namespace' => ['some/Namespace', 'some/Namespace'];
@@ -175,13 +175,13 @@ class PackageUrlParserTest extends TestCase
     /**
      * @psalm-return Generator<non-empty-string, array{string, array<string, string>}>
      */
-    public static function dpStringsToDecoded(): Generator
+    public static function dpStringsToDecoded(): \Generator
     {
         yield 'some string' => ['someString', 'someString'];
         yield 'encoded string' => ['some%20%22encoded%22%20string', 'some "encoded" string'];
     }
 
-    public static function dpNormalizeQualifiers(): Generator
+    public static function dpNormalizeQualifiers(): \Generator
     {
         yield 'null' => [null, [null, null]];
         yield 'empty' => ['', [null, null]];
@@ -197,7 +197,7 @@ class PackageUrlParserTest extends TestCase
     /**
      * @psalm-return Generator<non-empty-string, array{string, string}>
      */
-    public static function dpNormalizeSubpath(): Generator
+    public static function dpNormalizeSubpath(): \Generator
     {
         yield 'dot' => ['.', null];
         yield 'dot dot' => ['..', null];

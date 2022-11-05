@@ -63,7 +63,7 @@ abstract class TestSuiteData
      *
      * @psalm-return Generator<non-empty-string, array{TDataSet}>
      */
-    public static function data(): Generator
+    public static function data(): \Generator
     {
         $testSuite = json_decode(file_get_contents(__DIR__.'/../_examples/test-suite-data.json'), true, 521, \JSON_THROW_ON_ERROR);
         foreach ($testSuite as $data) {
