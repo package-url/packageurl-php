@@ -29,7 +29,6 @@ declare(strict_types=1);
 
 namespace PackageUrl\Tests;
 
-use DomainException;
 use PackageUrl\PackageUrl;
 use PackageUrl\PackageUrlBuilder;
 use PackageUrl\PackageUrlParser;
@@ -65,7 +64,7 @@ class PackageUrlTest extends TestCase
 
     public function testTypeSetterInvalid(): void
     {
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/empty/i');
         $this->sut->setType('');
     }
@@ -83,7 +82,7 @@ class PackageUrlTest extends TestCase
 
     public function testNameSetterInvalid(): void
     {
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/empty/i');
         $this->sut->setName('');
     }
@@ -148,7 +147,7 @@ class PackageUrlTest extends TestCase
     public function testQualifiersSetterWithChecksums(): void
     {
         $qualifiers = ['checksum' => 'md5:'.bin2hex(random_bytes(32))];
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/checksum/i');
         $this->sut->setQualifiers($qualifiers);
     }
@@ -205,7 +204,7 @@ class PackageUrlTest extends TestCase
             ->willReturn(self::parsedToNulls());
         $parser->expects(self::once())->method('normalizeScheme')
             ->willReturn(null);
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/mismatching scheme/i');
         $this->sut::fromString('something', $parser);
     }
@@ -221,7 +220,7 @@ class PackageUrlTest extends TestCase
             ->willReturn(null);
         $parser->method('normalizeName')
             ->willReturn('something');
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/type .*empty/i');
         $this->sut::fromString('something', $parser);
     }

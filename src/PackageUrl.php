@@ -29,8 +29,6 @@ declare(strict_types=1);
 
 namespace PackageUrl;
 
-use DomainException;
-
 /**
  * A purl is a package URL as defined at
  * {@link https://github.com/package-url/purl-spec}.
@@ -101,14 +99,14 @@ class PackageUrl
     }
 
     /**
-     * @throws DomainException if value is empty
+     * @throws \DomainException if value is empty
      *
      * @psalm-return  $this
      */
     public function setType(string $type): self
     {
         if ('' === $type) {
-            throw new DomainException('Type must not be empty');
+            throw new \DomainException('Type must not be empty');
         }
         $this->type = $type;
 
@@ -142,14 +140,14 @@ class PackageUrl
     }
 
     /**
-     * @throws DomainException if value is empty
+     * @throws \DomainException if value is empty
      *
      * @psalm-return $this
      */
     public function setName(string $name): self
     {
         if ('' === $name) {
-            throw new DomainException('Name must not be empty');
+            throw new \DomainException('Name must not be empty');
         }
         $this->name = $name;
 
@@ -185,14 +183,14 @@ class PackageUrl
     /**
      * @psalm-param TQualifiers $qualifiers
      *
-     * @throws DomainException if checksums are part of the qualifiers. Use setChecksums() to set these.
+     * @throws \DomainException if checksums are part of the qualifiers. Use setChecksums() to set these.
      *
      * @psalm-return $this
      */
     public function setQualifiers(?array $qualifiers): self
     {
         if ($qualifiers && \array_key_exists(self::CHECKSUM_QUALIFIER, $qualifiers)) {
-            throw new DomainException('Checksums must not be part of the qualifiers. Use setChecksums().');
+            throw new \DomainException('Checksums must not be part of the qualifiers. Use setChecksums().');
         }
         $this->qualifiers = $qualifiers;
 
@@ -240,7 +238,7 @@ class PackageUrl
     // endregion getters/setters
 
     /**
-     * @throws DomainException if a value was invalid
+     * @throws \DomainException if a value was invalid
      *
      * @see settype()
      * @see setName()
@@ -287,7 +285,7 @@ class PackageUrl
     }
 
     /**
-     * @throws DomainException if the data is invalid according to the specification
+     * @throws \DomainException if the data is invalid according to the specification
      *
      * @psalm-return static|null null when empty string is passed
      */
@@ -310,17 +308,17 @@ class PackageUrl
         ] = $parser->parse($data);
 
         if (self::SCHEME !== $parser->normalizeScheme((string) $scheme)) {
-            throw new DomainException("Mismatching scheme '{$scheme}'");
+            throw new \DomainException("Mismatching scheme '{$scheme}'");
         }
 
         $type = $parser->normalizeType($type);
         if (null === $type) {
-            throw new DomainException('Type must not be empty');
+            throw new \DomainException('Type must not be empty');
         }
 
         $name = $parser->normalizeName($name, $type);
         if (null === $name) {
-            throw new DomainException('Name must not be empty');
+            throw new \DomainException('Name must not be empty');
         }
 
         [$qualifiers, $checksums] = $parser->normalizeQualifiers($qualifiers);
