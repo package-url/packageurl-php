@@ -54,7 +54,7 @@ See the [contribution docs][contributing_file] for details.
 [license_file]: https://github.com/package-url/packageurl-php/blob/main/LICENSE
 [contributing_file]: https://github.com/package-url/packageurl-php/blob/main/CONTRIBUTING.md
 
-[shield_gh-workflow-test]: https://img.shields.io/github/workflow/status/package-url/packageurl-php/PHP%20CI/main?logo=GitHub&logoColor=white "build"
+[shield_gh-workflow-test]: https://img.shields.io/github/actions/workflow/status/package-url/packageurl-php/php.yml?branch=main&?logo=GitHub&logoColor=white "build"
 [shield_packagist-version]: https://img.shields.io/packagist/v/package-url/packageurl-php?logo=&logoColor=white "packagist"
 [shield_license]: https://img.shields.io/github/license/package-url/packageurl-php "license"
 [link_gh-workflow-test]: https://github.com/package-url/packageurl-php/actions?workflow=PHP+CI
