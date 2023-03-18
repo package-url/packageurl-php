@@ -1,5 +1,13 @@
 # Changes
 
+## 1.0.6 - 2023-03-18
+
+Maintenance release.
+
+## 1.0.5 - 2023-03-03
+
+Maintenance release.
+
 ## 1.0.4 - 2022-01-04
 
 Maintenance release:
