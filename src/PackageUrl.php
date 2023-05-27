@@ -265,7 +265,7 @@ class PackageUrl
      *
      * @psalm-suppress MissingThrowsDocblock since DomainExceptions are impossible due to internal assertions.
      */
-    public function toString(?PackageUrlBuilder $builder = null): string
+    public function toString(PackageUrlBuilder $builder = null): string
     {
         $builder = $builder ?? new PackageUrlBuilder();
 
@@ -289,7 +289,7 @@ class PackageUrl
      *
      * @psalm-return static|null null when empty string is passed
      */
-    public static function fromString(string $data, ?PackageUrlParser $parser = null): ?self
+    public static function fromString(string $data, PackageUrlParser $parser = null): ?self
     {
         if ('' === $data) {
             return null;
