@@ -89,7 +89,7 @@ jobs:
           path: ${{ env.REPORTS_DIR }}
           if-no-files-found: error
   code-checker:
-    name: Code analysis (php${{ matrix.php }})
+    name: Code Analysis (php${{ matrix.php-version }})
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -131,10 +131,10 @@ jobs:
       - name: Run Psalm tests
         run: >
           php tools/psalm/vendor/vimeo/psalm/psalm
+          --php-version=${{ matrix.php-version }}
           --no-diff
           --no-cache
           --long-progress
-          --php-version=${{ matrix.php-version }}
           --report=${{ env.REPORTS_DIR }}/psalm.php${{ matrix.php-version }}.junit.xml
       - name: Artifact reports
         if: ${{ ! cancelled() }}
