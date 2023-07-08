@@ -122,6 +122,7 @@ jobs:
         working-directory: tools/psalm
       - name: Install dependencies
         run: >
+          composer config platform.php ${{ matrix.php-version }} &&
           composer install
           --no-dev
           --prefer-dist
