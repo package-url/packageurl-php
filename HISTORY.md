@@ -1,5 +1,7 @@
 # Changes
 
+## unreleased
+
 ## 1.0.6 - 2023-03-18
 
 Maintenance release.
