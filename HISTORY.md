@@ -2,6 +2,18 @@
 
 ## unreleased
 
+* Added
+  * Constant `PackageUrl::QUALIFIER_REPOSITORY_URL` ([#54] via [#])
+  * Constant `PackageUrl::QUALIFIER_DOWNLOAD_URL` ([#54] via [#])
+  * Constant `PackageUrl::QUALIFIER_VCS_URL` ([#54] via [#])
+  * Constant `PackageUrl::QUALIFIER_FILE_NAME` ([#54] via [#])
+  * Constant `PackageUrl::QUALIFIER_CHECKSUM` ([#54] via [#])
+* Deprecated
+  * Constant `PackageUrl::CHECKSUM_QUALIFIER` -> use `PackageUrl::QUALIFIER_CHECKSUM` instead ([#54] via [#])
+
+[#54]: https://github.com/package-url/packageurl-php/issues/54
+[#]
+
 ## 1.0.6 - 2023-03-18
 
 Maintenance release.
