@@ -27,8 +27,7 @@ use PackageUrl\PackageUrl;
 $purl = (new PackageUrl('composer', 'console'))
     ->setNamespace('symfony')
     ->setVersion('6.3.8')
-    ->setQualifiers(['vcs_url'=>'git+https://github.com/symfony/console.git@v6.3.8'])
-;
+    ->setQualifiers(['vcs_url'=>'git+https://github.com/symfony/console.git@v6.3.8']);
 
 $purlString = $purl->toString();
 
