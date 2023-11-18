@@ -2,6 +2,8 @@
 
 ## unreleased
 
+## 1.1.0 - 2023-11-18
+
 * Added
   * Constant `PackageUrl::QUALIFIER_REPOSITORY_URL` ([#54] via [#158])
   * Constant `PackageUrl::QUALIFIER_DOWNLOAD_URL` ([#54] via [#158])
