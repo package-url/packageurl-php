@@ -6,8 +6,8 @@
 
 # Package URL (purl) for PHP
 
-A parser and builder based on the [package url spec]
-implemented for PHP.
+A parser and builder based on [package url spec],
+implemented in PHP.
 
 License: MIT
 
@@ -24,19 +24,18 @@ composer require package-url/packageurl-php
 
 use PackageUrl\PackageUrl;
 
-$purl = (new PackageUrl('maven', 'myartifact'))
-    ->setNamespace('mygroup')
-    ->setVersion('1.0.0 Final')
-    ->setQualifiers(['mykey' => 'my value'])
-    ->setChecksums(['md5:46d2ff0ce36bd553a394e8fa1fa846c7'])
-    ->setSubpath('my/sub/path');
+$purl = (new PackageUrl('composer', 'console'))
+    ->setNamespace('symfony')
+    ->setVersion('6.3.8')
+    ->setQualifiers(['vcs_url'=>'git+https://github.com/symfony/console.git@v6.3.8'])
+;
 
 $purlString = $purl->toString();
 
-// string(117) "pkg:maven/mygroup/myartifact@1.0.0%20Final?checksum=md5:46d2ff0ce36bd553a394e8fa1fa846c7&mykey=my%20value#my/sub/path"
+// string(96) "pkg:composer/symfony/console@6.3.8?vcs_url=git%2Bhttps://github.com/symfony/console.git%40v6.3.8"
 var_dump($purlString);
 
-// string(117) "pkg:maven/mygroup/myartifact@1.0.0%20Final?checksum=md5:46d2ff0ce36bd553a394e8fa1fa846c7&mykey=my%20value#my/sub/path"
+// string(96) "pkg:composer/symfony/console@6.3.8?vcs_url=git%2Bhttps://github.com/symfony/console.git%40v6.3.8"
 var_dump((string) $purl);
 
 $purl2 = PackageUrl::fromString($purlString);
@@ -49,7 +48,8 @@ var_dump($purl == $purl2);
 Feel free to open pull requests.  
 See the [contribution docs][contributing_file] for details.
 
-[package url spec]: https://github.com/package-url/purl-spec
+
+[package url spec]: https://github.com/package-url/purl-spec/blob/master/PURL-SPECIFICATION.rst
 
 [license_file]: https://github.com/package-url/packageurl-php/blob/main/LICENSE
 [contributing_file]: https://github.com/package-url/packageurl-php/blob/main/CONTRIBUTING.md
