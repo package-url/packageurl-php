@@ -2,8 +2,12 @@
 
 ## unreleased
 
-* Added
-  * Officially support PHP8.3 (via [#160])
+## 1.1.1 - 2023-11-27
+
+Maintenance release:
+
+* Misc
+ * Assured php 8.3 compatibility (via [#160])
 
 [#160] https://github.com/package-url/packageurl-php/pull/160
 
