@@ -9,8 +9,8 @@ Maintenance release:
 * Misc
  * Assured php 8.3 compatibility (via [#160])
 
-[#160] https://github.com/package-url/packageurl-php/pull/160
-
+[#160]: https://github.com/package-url/packageurl-php/pull/160
+``
 ## 1.1.0 - 2023-11-18
 
 * Added
