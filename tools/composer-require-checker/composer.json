@@ -6,7 +6,7 @@
         "php": ">=7.4"
     },
     "require-dev": {
-        "maglnet/composer-require-checker": "3.8.0",
+        "maglnet/composer-require-checker": "3.8.0||4.7.1",
         "roave/security-advisories": "dev-latest"
     },
     "prefer-stable": true,
