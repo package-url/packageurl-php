@@ -32,7 +32,7 @@
     },
     "require-dev": {
         "ext-json": "*",
-        "phpunit/phpunit": "9.6.15",
+        "phpunit/phpunit": "9.6.16",
         "roave/security-advisories": "dev-latest"
     },
     "prefer-stable": true,
