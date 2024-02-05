@@ -2,6 +2,12 @@
 
 ## unreleased
 
+<!-- new unreleased items here -->
+
+## 1.1.2 - 2024-02-05
+
+Maintenance release.
+
 ## 1.1.1 - 2023-11-27
 
 Maintenance release:
