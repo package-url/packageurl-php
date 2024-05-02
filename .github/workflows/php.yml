@@ -86,7 +86,7 @@ jobs:
         # see https://github.com/actions/upload-artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.REPORTS_ARTIFACT }}
+          name: '${{ env.REPORTS_ARTIFACT }}_PHPUnit_php${{ matrix.php }}_${{ matrix.os }}'
           path: ${{ env.REPORTS_DIR }}
           if-no-files-found: error
   code-checker:
@@ -143,7 +143,7 @@ jobs:
         # see https://github.com/actions/upload-artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.REPORTS_ARTIFACT }}
+          name: '${{ env.REPORTS_ARTIFACT }}_CodeCheck_php${{ matrix.php-version }}'
           path: ${{ env.REPORTS_DIR }}
           if-no-files-found: error
   style-checker:
