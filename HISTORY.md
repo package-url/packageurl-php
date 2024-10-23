@@ -4,6 +4,11 @@
 
 <!-- new unreleased items here -->
 
+* Style
+  * Applied latest code style (via [#196])
+
+[#196]: https://github.com/package-url/packageurl-php/pull/196
+
 ## 1.1.2 - 2024-02-05
 
 Maintenance release.

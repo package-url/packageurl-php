@@ -47,6 +47,7 @@ return $config
         'declare_strict_types' => true,
         'phpdoc_order' => true,
         'header_comment' => ['header' => $header],
+        'trailing_comma_in_multiline' => ['after_heredoc' => true], // for php73 compat
     ])
     ->setRiskyAllowed(true)
     ->setFinder($finder)
