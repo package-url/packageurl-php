@@ -1,15 +1,21 @@
+# Package URL (purl) for PHP
+
 [![shield_gh-workflow-test]][link_gh-workflow-test]
 [![shield_packagist-version]][link_packagist]
 [![shield_license]][license_file]
 
 ----
 
-# Package URL (purl) for PHP
 
 A parser and builder based on [package url spec],
 implemented in PHP.
 
 License: MIT
+
+> [!NOTE]
+> PackageURL is in the process of review, refinement, and standardization - which braucht changes in the spec.
+> This library might be no longer compliant to latest PURL spec, and will not receive an update until the standardization process is finished and a stable spec version was released.
+
 
 ## Install
 
