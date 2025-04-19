@@ -13,8 +13,9 @@ implemented in PHP.
 License: MIT
 
 > [!NOTE]
-> PackageURL is in the process of review, refinement, and standardization - which braucht changes in the spec.
-> This library might be no longer compliant to latest PURL spec, and will not receive an update until the standardization process is finished and a stable spec version was released.
+> PackageURL (PURL) is currently undergoing a process of review and standardization, leading to updates in the specification.  
+> As a result, this library may no longer comply with the latest PURL standards.
+> It will not receive further updates until the standardization process is complete and a stable version of the specification is released.
 
 
 ## Install
