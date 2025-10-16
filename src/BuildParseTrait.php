@@ -82,6 +82,14 @@ trait BuildParseTrait
     {
         if (null !== $type) {
             $type = strtolower($type);
+
+            if (!preg_match('/^[a-z0-9._-]+$/i', $type)) {
+                throw new \InvalidArgumentException(\sprintf('Type must be composed only of ASCII letters, numbers, period, dash, or underscore: "%s"', $type));
+            }
+
+            if (isset($type[0]) && ctype_digit($type[0])) {
+                throw new \InvalidArgumentException(\sprintf('Type cannot start with a number: "%s"', $type));
+            }
         }
         if ('pypi' === $type) {
             /**

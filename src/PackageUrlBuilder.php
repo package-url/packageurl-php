@@ -175,7 +175,8 @@ class PackageUrlBuilder
 
         /** @var mixed $value */
         foreach ($data as $key => $value) {
-            $key = (string) $key;
+            $key = strtolower((string) $key);
+
             if ('' === $key) {
                 continue;
             }
@@ -217,7 +218,8 @@ class PackageUrlBuilder
         $checksums = [];
         /** @var mixed $checksum */
         foreach ($data as $checksum) {
-            $checksum = (string) $checksum;
+            $checksum = strtolower((string) $checksum);
+
             if ('' === $checksum) {
                 continue;
             }

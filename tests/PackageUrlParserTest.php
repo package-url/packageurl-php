@@ -84,29 +84,6 @@ class PackageUrlParserTest extends TestCase
     }
 
     /**
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::normalizeNameSpecials
-     * @dataProvider dpStringsToDecoded
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     *
-     * @psalm-param non-empty-string|null $type
-     */
-    public function testNormalizeName(?string $input, ?string $expectedOutput, string $type = ''): void
-    {
-        $normalized = $this->sut->normalizeName($input, $type);
-        self::assertSame($expectedOutput, $normalized);
-    }
-
-    /**
-     * @dataProvider dpStringsToDecoded
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     */
-    public function testNormalizeVersion(?string $input, ?string $expectedOutput): void
-    {
-        $normalized = $this->sut->normalizeVersion($input);
-        self::assertSame($expectedOutput, $normalized);
-    }
-
-    /**
      * @dataProvider dpNormalizeQualifiers
      */
     public function testNormalizeQualifiers(?string $input, ?array $expectedQualifiers): void

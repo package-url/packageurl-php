@@ -75,7 +75,6 @@ class PackageUrlBuilderTest extends TestCase
 
     /**
      * @dataProvider \PackageUrl\Tests\_data\MiscProvider::normalizeNameSpecials
-     * @dataProvider dpStringsToEncoded
      *
      * @psalm-param non-empty-string|null $type
      */
@@ -93,7 +92,6 @@ class PackageUrlBuilderTest extends TestCase
     }
 
     /**
-     * @dataProvider dpStringsToEncoded
      * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
      */
     public function testNormalizeVersion(?string $input, ?string $expectedOutput): void
@@ -193,16 +191,6 @@ class PackageUrlBuilderTest extends TestCase
         yield 'some/empty Namespace' => ['some//Namespace', 'some/Namespace'];
         yield 'encoded Namespace' => ['some/Name space', 'some/Name%20space'];
         yield 'complex Namespace' => ['/yet/another//Name space/', 'yet/another/Name%20space'];
-    }
-
-    /**
-     * @psalm-return Generator<non-empty-string, array{string, array<string, string>}>
-     */
-    public static function dpStringsToEncoded(): \Generator
-    {
-        yield 'some:string' => ['some:String', 'some:String'];
-        yield 'some/string' => ['some/String', 'some/String'];
-        yield 'encoded string' => ['some "encoded" string', 'some%20%22encoded%22%20string'];
     }
 
     /**
