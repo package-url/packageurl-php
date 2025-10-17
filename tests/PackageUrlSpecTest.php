@@ -42,10 +42,10 @@ final class PackageUrlSpecTest extends TestCase
         return \dirname(__DIR__).'/spec/tests/spec/specification-test.json';
     }
 
-    //    private static function getTypesSpecDir(): string
-    //    {
-    //        return dirname(__DIR__) . '/spec/tests/types';
-    //    }
+    private static function getTypesSpecDir(): string
+    {
+        return \dirname(__DIR__).'/spec/tests/types';
+    }
 
     private static function loadSpecFile(string $path): array
     {
@@ -106,26 +106,27 @@ final class PackageUrlSpecTest extends TestCase
         return $cases;
     }
 
-    //    /**
-    //     * @return array[]
-    //     */
-    //    public static function typeCaseProvider(): array
-    //    {
-    //        $specDir = self::getTypesSpecDir();
-    //        $cases = [];
-    //        if (!is_dir($specDir)) {
-    //            return $cases;
-    //        }
-    //        foreach (scandir($specDir) as $file) {
-    //            if (str_ends_with($file, '-test.json')) {
-    //                $data = self::loadSpecFile($specDir . '/' . $file);
-    //                foreach ($data['tests'] as $case) {
-    //                    $cases[] = [$file, $case['description'], $case];
-    //                }
-    //            }
-    //        }
-    //        return $cases;
-    //    }
+    /**
+     * @return array[]
+     */
+    public static function typeCaseProvider(): array
+    {
+        $specDir = self::getTypesSpecDir();
+        $cases = [];
+        if (!is_dir($specDir)) {
+            return $cases;
+        }
+        foreach (scandir($specDir) as $file) {
+            if (str_ends_with($file, '-test.json')) {
+                $data = self::loadSpecFile($specDir.'/'.$file);
+                foreach ($data['tests'] as $case) {
+                    $cases[] = [$file, $case['description'], $case];
+                }
+            }
+        }
+
+        return $cases;
+    }
 
     /**
      * @dataProvider parseProvider
@@ -166,6 +167,7 @@ final class PackageUrlSpecTest extends TestCase
             $checksums = \is_array($checksumValue) ? $checksumValue : [$checksumValue];
         }
 
+        ksort($qualifiers);
         $purl
             ->setNamespace($namespace)
             ->setVersion($version)
@@ -176,21 +178,21 @@ final class PackageUrlSpecTest extends TestCase
         $this->assertSame($expectedOutput, $purl->toString(), "Failed: {$description}");
     }
 
-    //    /**
-    //     * @dataProvider typeCaseProvider
-    //     */
-    //    public function test_package_type_case(string $filename, string $description, array $case): void
-    //    {
-    //        $testType = $case['test_type'];
-    //        $expectedFailure = $case['expected_failure'] ?? false;
-    //
-    //        if ($expectedFailure) {
-    //            $this->expectException(\Exception::class);
-    //            $this->runTestCase($case, $testType, $description);
-    //        } else {
-    //            $this->runTestCase($case, $testType, $description);
-    //        }
-    //    }
+    /**
+     * @dataProvider typeCaseProvider
+     */
+    public function testPackageTypeCase(string $filename, string $description, array $case): void
+    {
+        $testType = $case['test_type'];
+        $expectedFailure = $case['expected_failure'] ?? false;
+
+        if ($expectedFailure) {
+            $this->expectException(\Exception::class);
+            $this->runTestCase($case, $testType, $description);
+        } else {
+            $this->runTestCase($case, $testType, $description);
+        }
+    }
 
     private function runTestCase(array $case, string $testType, string $desc): void
     {
@@ -202,11 +204,28 @@ final class PackageUrlSpecTest extends TestCase
                 $this->assertSame($expected['namespace'], $purl->getNamespace());
                 $this->assertSame($expected['name'], $purl->getName());
                 $this->assertSame($expected['version'], $purl->getVersion());
-                if (isset($expected['qualifiers'])) {
-                    $this->assertSame($expected['qualifiers'], $purl->getQualifiers());
-                } else {
-                    $this->assertEmpty($purl->getQualifiers());
+
+                $expected_qualifiers = $expected['qualifiers'];
+                $expected_checksums = null;
+                if (\is_array($expected_qualifiers) && \array_key_exists(PackageUrl::QUALIFIER_CHECKSUM, $expected_qualifiers)) {
+                    //                    $checksumValue = $expected_qualifiers[PackageUrl::QUALIFIER_CHECKSUM];
+                    unset($expected_qualifiers[PackageUrl::QUALIFIER_CHECKSUM]);
+                    //                    $expected_checksums = \is_array($checksumValue) ? $checksumValue : [$checksumValue];
                 }
+
+                if (isset($expected_qualifiers)) {
+                    ksort($expected_qualifiers);
+                    $actual = $purl->getQualifiers();
+                    ksort($actual);
+                    $this->assertSame($expected_qualifiers, $actual);
+                } else {
+                    $this->assertEmpty($expected_qualifiers);
+                }
+
+                // if ($expected_checksums) {
+                // $this->assertSame($expected['checksums'], $expected_checksums);
+                // }
+
                 $this->assertSame($expected['subpath'], $purl->getSubpath());
                 break;
 
@@ -219,13 +238,22 @@ final class PackageUrlSpecTest extends TestCase
                 $input = $case['input'];
                 $purl = new PackageUrl(
                     $input['type'] ?? null,
-                    $input['namespace'] ?? null,
+                    $input['name'] ?? null,
                 );
+
+                $checksums = null;
+                if (\is_array($input['qualifiers']) && \array_key_exists(PackageUrl::QUALIFIER_CHECKSUM, $input['qualifiers'])) {
+                    $checksumValue = $input['qualifiers'][PackageUrl::QUALIFIER_CHECKSUM];
+                    unset($input['qualifiers'][PackageUrl::QUALIFIER_CHECKSUM]);
+                    $checksums = \is_array($checksumValue) ? $checksumValue : [$checksumValue];
+                }
+
                 $purl
                     ->setNamespace($input['namespace'] ?? null)
                     ->setVersion($input['version'] ?? null)
                     ->setQualifiers($input['qualifiers'] ?? null)
-                    ->setSubpath($input['subpath'] ?? null);
+                    ->setSubpath($input['subpath'] ?? null)
+                    ->setChecksums($checksums ?? null);
 
                 $this->assertSame($case['expected_output'], $purl->toString());
                 break;

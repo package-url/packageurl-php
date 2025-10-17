@@ -124,8 +124,8 @@ class PackageUrlParserTest extends TestCase
         $normalized = [
             'type' => $this->sut->normalizeType($parsed['type']),
             'namespace' => $this->sut->normalizeNamespace($parsed['namespace'], $parsed['type']),
-            'name' => $this->sut->normalizeName($parsed['name'], $parsed['type']),
-            'version' => $this->sut->normalizeVersion($parsed['version']),
+            'name' => $this->sut->normalizeName($parsed['name'], $parsed['type'], []),
+            'version' => $this->sut->normalizeVersion($parsed['version'], $parsed['type']),
             'qualifiers' => $normalizedQualifiers,
             'subpath' => $this->sut->normalizeSubpath($parsed['subpath']),
         ];

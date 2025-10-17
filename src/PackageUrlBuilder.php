@@ -70,8 +70,8 @@ class PackageUrlBuilder
 
         $type = $this->normalizeType($type);
         $namespace = $this->normalizeNamespace($namespace, $type);
-        $name = $this->normalizeName($name, $type);
-        $version = $this->normalizeVersion($version);
+        $name = $this->normalizeName($name, $type, $qualifiers);
+        $version = $this->normalizeVersion($version, $type);
         $qualifiers = $this->normalizeQualifiers($qualifiers);
         $subpath = $this->normalizeSubpath($subpath);
 
@@ -105,6 +105,10 @@ class PackageUrlBuilder
      */
     public function normalizeNamespace(?string $data, string $type): ?string
     {
+        if ('swift' == $type && null === $data) {
+            throw new \InvalidArgumentException('Invalid Swift PURL: missing namespace.');
+        }
+
         if (null === $data) {
             return null;
         }
@@ -128,13 +132,13 @@ class PackageUrlBuilder
      *
      * @throws \DomainException if name is empty
      */
-    public function normalizeName(string $data, string $type): string
+    public function normalizeName(string $data, string $type, ?array $qualifiers): string
     {
         $data = trim($data, '/');
         if ('' === $data) {
             throw new \DomainException('name must not be empty');
         }
-        $data = $this->normalizeNameForType($data, $type);
+        $data = $this->normalizeNameForType($data, $type, $qualifiers);
 
         return $this->encode($data);
     }
@@ -142,8 +146,12 @@ class PackageUrlBuilder
     /**
      * @psalm-return non-empty-string|null
      */
-    public function normalizeVersion(?string $data): ?string
+    public function normalizeVersion(?string $data, ?string $type): ?string
     {
+        if ('swift' == $type && null === $data) {
+            throw new \InvalidArgumentException('Invalid Swift PURL: missing version.');
+        }
+
         if (null === $data) {
             return null;
         }

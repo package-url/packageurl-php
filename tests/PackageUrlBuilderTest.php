@@ -80,7 +80,7 @@ class PackageUrlBuilderTest extends TestCase
      */
     public function testNormalizeName(?string $input, ?string $expectedOutput, string $type = ''): void
     {
-        $normalized = $this->sut->normalizeName($input, $type);
+        $normalized = $this->sut->normalizeName($input, $type, []);
         self::assertSame($expectedOutput, $normalized);
     }
 
@@ -88,7 +88,7 @@ class PackageUrlBuilderTest extends TestCase
     {
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/name .*empty/i');
-        $this->sut->normalizeName('///', '');
+        $this->sut->normalizeName('///', '', []);
     }
 
     /**
@@ -96,7 +96,7 @@ class PackageUrlBuilderTest extends TestCase
      */
     public function testNormalizeVersion(?string $input, ?string $expectedOutput): void
     {
-        $normalized = $this->sut->normalizeVersion($input);
+        $normalized = $this->sut->normalizeVersion($input, 'test');
         self::assertSame($expectedOutput, $normalized);
     }
 
