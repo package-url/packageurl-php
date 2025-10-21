@@ -3,10 +3,10 @@
     "description": "composer-unused",
     "type": "metapackage",
     "require": {
-        "php": ">=7.4"
+        "php": ">=8.4"
     },
     "require-dev": {
-        "icanhazstring/composer-unused": "0.8.11",
+        "icanhazstring/composer-unused": "0.9.5",
         "roave/security-advisories": "dev-latest"
     },
     "prefer-stable": true,

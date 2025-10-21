@@ -3,11 +3,11 @@
     "description": "psalm and plugins",
     "type": "metapackage",
     "require": {
-        "php": ">=7.4"
+        "php": ">=8.2"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
-        "vimeo/psalm": "5.16"
+        "vimeo/psalm": "5.16||6.13.1"
     },
     "prefer-stable": true,
     "config": {
