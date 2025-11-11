@@ -228,7 +228,7 @@ class PackageUrl
     }
 
     /**
-     * @psalm-param TQualifiers $qualifiers
+     * @psalm-param TQualifiers $qualfifiers
      *
      * @throws \DomainException if checksums are part of the qualifiers. Use setChecksums() to set these.
      *
@@ -286,12 +286,17 @@ class PackageUrl
 
     /**
      * @throws \DomainException if a value was invalid
-     *
-     * @see settype()
-     * @see setName()
      */
-    final public function __construct(string $type, string $name)
+    final public function __construct(?string $type, ?string $name)
     {
+        if (null === $type || '' === $type) {
+            throw new \Exception('Type is required for a Package URL.');
+        }
+
+        if (null === $name || '' === $name) {
+            throw new \Exception('Name is required for a Package URL.');
+        }
+
         $this->setType($type);
         $this->setName($name);
     }
@@ -363,7 +368,7 @@ class PackageUrl
             throw new \DomainException('Type must not be empty');
         }
 
-        $name = $parser->normalizeName($name, $type);
+        $name = $parser->normalizeName($name, $type, $qualifiers);
         if (null === $name) {
             throw new \DomainException('Name must not be empty');
         }
@@ -372,7 +377,7 @@ class PackageUrl
 
         return (new static($type, $name))
             ->setNamespace($parser->normalizeNamespace($namespace, $type))
-            ->setVersion($parser->normalizeVersion($version))
+            ->setVersion($parser->normalizeVersion($version, $type))
             ->setQualifiers($qualifiers)
             ->setChecksums($checksums)
             ->setSubpath($parser->normalizeSubpath($subpath));

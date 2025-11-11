@@ -156,6 +156,10 @@ class PackageUrlParser
      */
     public function normalizeNamespace(?string $data, ?string $type): ?string
     {
+        if ('swift' == $type && null === $data) {
+            throw new \InvalidArgumentException('Invalid Swift PURL: missing namespace.');
+        }
+
         if (null === $data) {
             return null;
         }
@@ -179,7 +183,7 @@ class PackageUrlParser
     /**
      * @return TName|null
      */
-    public function normalizeName(?string $data, ?string $type): ?string
+    public function normalizeName(?string $data, ?string $type, $qualifiers): ?string
     {
         if (null === $data) {
             return null;
@@ -189,19 +193,27 @@ class PackageUrlParser
             return null;
         }
 
-        return $this->normalizeNameForType($name, $type);
+        return $this->normalizeNameForType($name, $type, $qualifiers);
     }
 
     /**
      * @return TVersion
      */
-    public function normalizeVersion(?string $data): ?string
+    public function normalizeVersion(?string $data, ?string $type): ?string
     {
+        if ('swift' == $type && null === $data) {
+            throw new \InvalidArgumentException('Invalid Swift PURL: missing version.');
+        }
+
         if (null === $data) {
             return null;
         }
 
         $version = rawurldecode($data);
+
+        if (\is_string($type) && \in_array(strtolower($type), ['huggingface', 'oci'], true)) {
+            $version = strtolower($version);
+        }
 
         return '' === $version
             ? null
@@ -241,6 +253,8 @@ class PackageUrlParser
             ? null
             : explode(',', $qualifiers[PackageUrl::QUALIFIER_CHECKSUM]);
         unset($qualifiers[PackageUrl::QUALIFIER_CHECKSUM]);
+
+        ksort($qualifiers);
 
         return empty($qualifiers)
             ? [null, $checksums]

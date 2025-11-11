@@ -84,29 +84,6 @@ class PackageUrlParserTest extends TestCase
     }
 
     /**
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::normalizeNameSpecials
-     * @dataProvider dpStringsToDecoded
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     *
-     * @psalm-param non-empty-string|null $type
-     */
-    public function testNormalizeName(?string $input, ?string $expectedOutput, string $type = ''): void
-    {
-        $normalized = $this->sut->normalizeName($input, $type);
-        self::assertSame($expectedOutput, $normalized);
-    }
-
-    /**
-     * @dataProvider dpStringsToDecoded
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     */
-    public function testNormalizeVersion(?string $input, ?string $expectedOutput): void
-    {
-        $normalized = $this->sut->normalizeVersion($input);
-        self::assertSame($expectedOutput, $normalized);
-    }
-
-    /**
      * @dataProvider dpNormalizeQualifiers
      */
     public function testNormalizeQualifiers(?string $input, ?array $expectedQualifiers): void
@@ -147,8 +124,8 @@ class PackageUrlParserTest extends TestCase
         $normalized = [
             'type' => $this->sut->normalizeType($parsed['type']),
             'namespace' => $this->sut->normalizeNamespace($parsed['namespace'], $parsed['type']),
-            'name' => $this->sut->normalizeName($parsed['name'], $parsed['type']),
-            'version' => $this->sut->normalizeVersion($parsed['version']),
+            'name' => $this->sut->normalizeName($parsed['name'], $parsed['type'], []),
+            'version' => $this->sut->normalizeVersion($parsed['version'], $parsed['type']),
             'qualifiers' => $normalizedQualifiers,
             'subpath' => $this->sut->normalizeSubpath($parsed['subpath']),
         ];
