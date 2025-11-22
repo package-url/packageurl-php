@@ -6,7 +6,7 @@
         "php": ">=8.4"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "v3.89.2",
+        "friendsofphp/php-cs-fixer": "v3.90.0",
         "roave/security-advisories": "dev-latest"
     },
     "prefer-stable": true,
