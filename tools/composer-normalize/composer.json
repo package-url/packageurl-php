@@ -3,7 +3,7 @@
     "description": "composer-normalize",
     "type": "metapackage",
     "require": {
-        "php": ">=7.4"
+        "php": ">=8.4"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "2.48.2",

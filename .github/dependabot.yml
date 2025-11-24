@@ -1,5 +1,4 @@
-# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
-
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 version: 2
 updates:
   - package-ecosystem: 'composer'
@@ -17,64 +16,13 @@ updates:
       include: 'scope'
     open-pull-requests-limit: 999
 
-  - directory: '/tools/composer-require-checker'
-    package-ecosystem: 'composer'
-    schedule:
-      interval: 'weekly'
-      day: 'saturday'
-    allow:
-      - dependency-type: 'all'
-    versioning-strategy: 'auto'
-    labels: [ 'dependencies', 'tools' ]
-    commit-message:
-      ## prefix maximum string length of 15
-      prefix: 'tools'
-      include: 'scope'
-    open-pull-requests-limit: 999
-  - directory: '/tools/composer-unused'
-    package-ecosystem: 'composer'
-    schedule:
-      interval: 'weekly'
-      day: 'saturday'
-    allow:
-      - dependency-type: 'all'
-    versioning-strategy: 'auto'
-    labels: [ 'dependencies', 'tools' ]
-    commit-message:
-      ## prefix maximum string length of 15
-      prefix: 'tools'
-      include: 'scope'
-    open-pull-requests-limit: 999
-  - directory: '/tools/php-cs-fixer'
-    package-ecosystem: 'composer'
-    schedule:
-      interval: 'weekly'
-      day: 'saturday'
-    allow:
-      - dependency-type: 'all'
-    versioning-strategy: 'auto'
-    labels: [ 'dependencies', 'tools' ]
-    commit-message:
-      ## prefix maximum string length of 15
-      prefix: 'tools'
-      include: 'scope'
-    open-pull-requests-limit: 999
-  - directory: '/tools/psalm'
-    package-ecosystem: 'composer'
-    schedule:
-      interval: 'weekly'
-      day: 'saturday'
-    allow:
-      - dependency-type: 'all'
-    versioning-strategy: 'auto'
-    labels: [ 'dependencies', 'tools' ]
-    commit-message:
-      ## prefix maximum string length of 15
-      prefix: 'tools'
-      include: 'scope'
-    open-pull-requests-limit: 999
-  - directory: '/tools/composer-normalize'
-    package-ecosystem: 'composer'
+  - package-ecosystem: 'composer'
+    directories:
+    - '/tools/composer-normalize'
+    - '/tools/composer-require-checker'
+    - '/tools/composer-unused'
+    - '/tools/php-cs-fixer'
+    - '/tools/psalm'
     schedule:
       interval: 'weekly'
       day: 'saturday'
