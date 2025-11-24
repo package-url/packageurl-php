@@ -62,7 +62,7 @@ trait BuildParseTrait
         if (null !== $type) {
             $type = strtolower($type);
         }
-        if (\in_array($type, ['bitbucket', 'deb', 'github', 'golang', 'hex', 'rpm'], true)) {
+        if (\in_array($type, ['bitbucket', 'deb', 'github', 'golang', 'hex', 'rpm', 'composer'], true)) {
             return static function (string $data): string {
                 return strtolower($data);
             };
@@ -74,14 +74,57 @@ trait BuildParseTrait
     }
 
     /**
+     * Normalize MLflow package name based on qualifiers.
+     *
+     * MLflow purl names are case-sensitive for Azure ML (keep as-is)
+     * and case-insensitive for Databricks (lowercase).
+     *
+     * @param mixed $qualifiers Can be string, array, or null
+     */
+    public function normalize_mlflow_name(string $name, $qualifiers): ?string
+    {
+        if (\is_array($qualifiers)) {
+            $repoUrl = $qualifiers['repository_url'] ?? null;
+
+            if (null !== $repoUrl) {
+                $repoUrlLower = strtolower($repoUrl);
+                if (str_contains($repoUrlLower, 'azureml')) {
+                    return $name;
+                }
+                if (str_contains($repoUrlLower, 'databricks')) {
+                    return strtolower($name);
+                }
+            }
+        } elseif (\is_string($qualifiers)) {
+            $qualifiersLower = strtolower($qualifiers);
+            if (str_contains($qualifiersLower, 'azureml')) {
+                return $name;
+            }
+            if (str_contains($qualifiersLower, 'databricks')) {
+                return strtolower($name);
+            }
+        }
+
+        return $name;
+    }
+
+    /**
      * @psalm-param  non-empty-string $name
      *
      * @return non-empty-string
      */
-    private function normalizeNameForType(string $name, ?string $type): string
+    private function normalizeNameForType(string $name, ?string $type, $qualifiers): string
     {
         if (null !== $type) {
             $type = strtolower($type);
+
+            if (!preg_match('/^[a-z0-9._-]+$/i', $type)) {
+                throw new \InvalidArgumentException(\sprintf('Type must be composed only of ASCII letters, numbers, period, dash, or underscore: "%s"', $type));
+            }
+
+            if (isset($type[0]) && ctype_digit($type[0])) {
+                throw new \InvalidArgumentException(\sprintf('Type cannot start with a number: "%s"', $type));
+            }
         }
         if ('pypi' === $type) {
             /**
@@ -90,9 +133,11 @@ trait BuildParseTrait
              * @psalm-var non-empty-string $name
              */
             $name = str_replace('_', '-', $name);
+        } elseif ('mlflow' === $type) {
+            $name = $this->normalize_mlflow_name($name, $qualifiers);
         }
 
-        if (\in_array($type, ['bitbucket', 'deb', 'github', 'golang', 'hex', 'npm', 'pypi'], true)) {
+        if (\in_array($type, ['bitbucket', 'deb', 'github', 'golang', 'hex', 'npm', 'pypi', 'composer'], true)) {
             $name = strtolower($name);
         }
 

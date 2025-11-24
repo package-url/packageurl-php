@@ -75,13 +75,12 @@ class PackageUrlBuilderTest extends TestCase
 
     /**
      * @dataProvider \PackageUrl\Tests\_data\MiscProvider::normalizeNameSpecials
-     * @dataProvider dpStringsToEncoded
      *
      * @psalm-param non-empty-string|null $type
      */
     public function testNormalizeName(?string $input, ?string $expectedOutput, string $type = ''): void
     {
-        $normalized = $this->sut->normalizeName($input, $type);
+        $normalized = $this->sut->normalizeName($input, $type, []);
         self::assertSame($expectedOutput, $normalized);
     }
 
@@ -89,16 +88,15 @@ class PackageUrlBuilderTest extends TestCase
     {
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/name .*empty/i');
-        $this->sut->normalizeName('///', '');
+        $this->sut->normalizeName('///', '', []);
     }
 
     /**
-     * @dataProvider dpStringsToEncoded
      * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
      */
     public function testNormalizeVersion(?string $input, ?string $expectedOutput): void
     {
-        $normalized = $this->sut->normalizeVersion($input);
+        $normalized = $this->sut->normalizeVersion($input, 'test');
         self::assertSame($expectedOutput, $normalized);
     }
 
@@ -193,16 +191,6 @@ class PackageUrlBuilderTest extends TestCase
         yield 'some/empty Namespace' => ['some//Namespace', 'some/Namespace'];
         yield 'encoded Namespace' => ['some/Name space', 'some/Name%20space'];
         yield 'complex Namespace' => ['/yet/another//Name space/', 'yet/another/Name%20space'];
-    }
-
-    /**
-     * @psalm-return Generator<non-empty-string, array{string, array<string, string>}>
-     */
-    public static function dpStringsToEncoded(): \Generator
-    {
-        yield 'some:string' => ['some:String', 'some:String'];
-        yield 'some/string' => ['some/String', 'some/String'];
-        yield 'encoded string' => ['some "encoded" string', 'some%20%22encoded%22%20string'];
     }
 
     /**
