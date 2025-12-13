@@ -91,7 +91,7 @@ jobs:
       - name: Artifact reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: '${{ env.REPORTS_ARTIFACT }}_PHPUnit_php${{ matrix.php }}_${{ matrix.os }}'
           path: ${{ env.REPORTS_DIR }}
@@ -148,7 +148,7 @@ jobs:
       - name: Artifact reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: '${{ env.REPORTS_ARTIFACT }}_CodeCheck_php${{ matrix.php-version }}'
           path: ${{ env.REPORTS_DIR }}
