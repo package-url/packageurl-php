@@ -2,6 +2,16 @@
 
 Feel free to open pull requests.
 
+
+## Pullrequests
+
+When opening a pull request, use the repository’s pull request template and complete all required fields.  
+Keep each pull request focused on a single topic or problem.
+
+Every pull request must reference an existing issue that it aims to address.  
+If no issue exists for your topic, please create one first using the appropriate issue template, then link your pull request to it.
+
+
 ## Setup 
 
 Even though the code base itself is php 7.3 compatible,
