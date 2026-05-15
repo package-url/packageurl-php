@@ -16,6 +16,7 @@ License: MIT
 > PackageURL (PURL) is currently undergoing a process of review and standardization, leading to updates in the specification.  
 > As a result, this library may no longer comply with the latest PURL standards.
 > It will not receive further updates until the standardization process is complete and a stable version of the specification is released.
+> See https://github.com/package-url/packageurl-php/issues/243
 
 
 ## Install
