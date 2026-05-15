@@ -42,15 +42,15 @@ $purl = (new PackageUrl('composer', 'console'))
 
 $purlString = $purl->toString();
 
-// string(96) "pkg:composer/symfony/console@6.3.8?vcs_url=git%2Bhttps://github.com/symfony/console.git%40v6.3.8"
 var_dump($purlString);
-
 // string(96) "pkg:composer/symfony/console@6.3.8?vcs_url=git%2Bhttps://github.com/symfony/console.git%40v6.3.8"
+
 var_dump((string) $purl);
+// string(96) "pkg:composer/symfony/console@6.3.8?vcs_url=git%2Bhttps://github.com/symfony/console.git%40v6.3.8"
 
 $purl2 = PackageUrl::fromString($purlString);
-// bool(true)
 var_dump($purl == $purl2);
+// bool(true)
 ```
 
 ## Contributing
