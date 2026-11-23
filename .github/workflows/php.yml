@@ -59,6 +59,8 @@ jobs:
           extensions: json
           tools: composer
           coverage: pcov
+        env:
+          update: true
       - name: dir setup
         run: mkdir ${{ env.REPORTS_DIR }}
       - name: Validate composer.json and composer.lock
@@ -120,6 +122,8 @@ jobs:
           php-version: ${{ env.PHP_VERSION_LATEST }}
           tools: composer
           coverage: none
+        env:
+          update: true
       - name: Install psalm
         run: >
           composer install
@@ -170,6 +174,8 @@ jobs:
           php-version: ${{ env.PHP_VERSION_LATEST }}
           tools: composer
           coverage: none
+        env:
+          update: true
       - name: Install PHP-CS-Fixer
         run: >
           composer install
@@ -212,6 +218,8 @@ jobs:
           php-version: ${{ env.PHP_VERSION_LATEST }}
           tools: composer
           coverage: none
+        env:
+          update: true
       - name: Install composer-require-checker
         run: >
           composer install
@@ -249,6 +257,8 @@ jobs:
           php-version: ${{ env.PHP_VERSION_LATEST }}
           tools: composer
           coverage: none
+        env:
+          update: true
       - name: Install composer-require-checker
         run: >
           composer install
@@ -287,6 +297,8 @@ jobs:
           php-version: ${{ env.PHP_VERSION_LATEST }}
           tools: composer
           coverage: none
+        env:
+          update: true
       - name: Install composer-normalize
         run: >
           composer install
