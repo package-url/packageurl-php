@@ -314,7 +314,7 @@ class PackageUrl
      */
     public function toString(?PackageUrlBuilder $builder = null): string
     {
-        $builder = $builder ?? new PackageUrlBuilder();
+        $builder ??= new PackageUrlBuilder();
 
         $qualifiers = $this->qualifiers ?? [];
         if ($this->checksums) {
@@ -342,7 +342,7 @@ class PackageUrl
             return null;
         }
 
-        $parser = $parser ?? new PackageUrlParser();
+        $parser ??= new PackageUrlParser();
 
         [
             'scheme' => $scheme,
