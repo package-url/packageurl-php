@@ -5,13 +5,19 @@
 <!-- new unreleased items here -->
 
 * BREAKING change
-  * removed suport for PHP < 8.3 ([#289] via [#291]) 
+  * Removed support for PHP < 8.3 ([#36], [#289] via [#291], [#292])
+* Added
+  * Support PHP 8.5 ([#199] via [#291], [#292])
+  * Support PHP 8.4 ([#199] via [#291], [#292])
 * Style
-  * Applied latest code style (via [#196])
+  * Applied latest code style (via [#196], [#291], [#292])
 
+[#36]: https://github.com/package-url/packageurl-php/issues/36
 [#196]: https://github.com/package-url/packageurl-php/pull/196
+[#199]: https://github.com/package-url/packageurl-php/issues/199
 [#289]: https://github.com/package-url/packageurl-php/issues/289
 [#291]: https://github.com/package-url/packageurl-php/pull/291
+[#291]: https://github.com/package-url/packageurl-php/pull/292
 
 ## 1.1.2 - 2024-02-05
 
