@@ -57,7 +57,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: json
-          tools: composer
+          tools: composer:v2
           coverage: pcov
         env:
           update: true
@@ -116,8 +116,8 @@ jobs:
         # see https://github.com/shivammathur/setup-php
         uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
-          php-version: ${{ env.PHP_VERSION_LATEST }}
-          tools: composer
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
           coverage: none
         env:
           update: true
@@ -208,7 +208,7 @@ jobs:
         uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
           php-version: ${{ env.PHP_VERSION_LATEST }}
-          tools: composer
+          tools: composer:v2
           coverage: none
         env:
           update: true
@@ -244,7 +244,7 @@ jobs:
         uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
           php-version: ${{ env.PHP_VERSION_LATEST }}
-          tools: composer
+          tools: composer:v2
           coverage: none
         env:
           update: true
@@ -281,7 +281,7 @@ jobs:
         uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
           php-version: ${{ env.PHP_VERSION_LATEST }}
-          tools: composer
+          tools: composer:v2
           coverage: none
         env:
           update: true
