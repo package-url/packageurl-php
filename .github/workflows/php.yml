@@ -75,16 +75,16 @@ jobs:
       - name: Run PHPUnit tests
         run: >
           php
-          -d zend.assertions=1
-          -d assert.exception=1
-          -d display_errors=On
-          -d error_reporting=-1
+          -d zend.assertions=1 -d assert.exception=1
+          -d display_errors=On -d display_startup_errors=On -d error_reporting=-1
           -d log_errors_max_len=0
           -d memory_limit=-1
+          -d xdebug.show_exception_trace=0 -d xdebug.mode=coverage
+          -d pcov.enabled=1 -d pcov.directory=src
           vendor/phpunit/phpunit/phpunit
-          --log-junit=${{ env.REPORTS_DIR }}/tests.${{ matrix.os }}_php${{ matrix.php }}.junit.xml
-          --coverage-clover=${{ env.REPORTS_DIR }}/coverage.${{ matrix.os}}_php${{ matrix.php }}.clover.xml
-          --do-not-cache-result
+          --no-progress
+          --log-junit='${{ env.REPORTS_DIR }}/tests.${{ matrix.os }}_php${{ matrix.php }}.junit.xml'
+          --coverage-clover='${{ env.REPORTS_DIR }}/coverage.${{ matrix.os}}_php${{ matrix.php }}.clover.xml'
       - name: Artifact reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact
