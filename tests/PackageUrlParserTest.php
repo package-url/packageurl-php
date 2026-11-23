@@ -31,15 +31,17 @@ namespace PackageUrl\Tests;
 
 use Generator;
 use PackageUrl\PackageUrlParser;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \PackageUrl\PackageUrlParser
- *
  * @psalm-import-type TDataSet from \PackageUrl\Tests\_data\TestSuiteData
  *
  * @author jkowalleck
  */
+#[CoversClass(PackageUrlParser::class)]
 class PackageUrlParserTest extends TestCase
 {
     /** @var PackageUrlParser */
@@ -50,20 +52,16 @@ class PackageUrlParserTest extends TestCase
         $this->sut = new PackageUrlParser();
     }
 
-    /**
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsToLowercase
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     */
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsToLowercase')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeScheme(?string $input, ?string $expectedOutput): void
     {
         $normalized = $this->sut->normalizeScheme($input);
         self::assertSame($expectedOutput, $normalized);
     }
 
-    /**
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsToLowercase
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     */
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsToLowercase')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeType(?string $input, ?string $expectedOutput): void
     {
         $normalized = $this->sut->normalizeType($input);
@@ -71,12 +69,11 @@ class PackageUrlParserTest extends TestCase
     }
 
     /**
-     * @dataProvider dpNormalizeNamespace
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::normalizeNamespaceSpecials()
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     *
      * @psalm-param non-empty-string|null $type
      */
+    #[DataProvider('dpNormalizeNamespace')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'normalizeNamespaceSpecials')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeNamespace(?string $input, ?string $expectedOutput, string $type = ''): void
     {
         $normalized = $this->sut->normalizeNamespace($input, $type);
@@ -84,41 +81,34 @@ class PackageUrlParserTest extends TestCase
     }
 
     /**
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::normalizeNameSpecials
-     * @dataProvider dpStringsToDecoded
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     *
      * @psalm-param non-empty-string|null $type
      */
+    #[DataProviderExternal(_data\MiscProvider::class, 'normalizeNameSpecials')]
+    #[DataProvider('dpStringsToDecoded')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeName(?string $input, ?string $expectedOutput, string $type = ''): void
     {
         $normalized = $this->sut->normalizeName($input, $type);
         self::assertSame($expectedOutput, $normalized);
     }
 
-    /**
-     * @dataProvider dpStringsToDecoded
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     */
+    #[DataProvider('dpStringsToDecoded')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeVersion(?string $input, ?string $expectedOutput): void
     {
         $normalized = $this->sut->normalizeVersion($input);
         self::assertSame($expectedOutput, $normalized);
     }
 
-    /**
-     * @dataProvider dpNormalizeQualifiers
-     */
+    #[DataProvider('dpNormalizeQualifiers')]
     public function testNormalizeQualifiers(?string $input, ?array $expectedQualifiers): void
     {
         $normalized = $this->sut->normalizeQualifiers($input);
         self::assertSame($expectedQualifiers, $normalized);
     }
 
-    /**
-     * @dataProvider dpNormalizeSubpath
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     */
+    #[DataProvider('dpNormalizeSubpath')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeSubpath(?string $input, ?string $expectedOutcome): void
     {
         $decoded = $this->sut->normalizeSubpath($input);
@@ -126,10 +116,9 @@ class PackageUrlParserTest extends TestCase
     }
 
     /**
-     * @dataProvider \PackageUrl\Tests\_data\TestSuiteData::data
-     *
      * @psalm-param TDataSet $data
      */
+    #[DataProviderExternal(_data\TestSuiteData::class, 'data')]
     public function testParseAndNormalize(array $data): void
     {
         $expected = [
@@ -163,7 +152,7 @@ class PackageUrlParserTest extends TestCase
     /**
      * @psalm-return Generator<non-empty-string, array{string, string}>
      */
-    public static function dpNormalizeNamespace(): \Generator
+    public static function dpNormalizeNamespace(): Generator
     {
         yield 'empty/empty' => ['/', null];
         yield 'some Namespace' => ['some/Namespace', 'some/Namespace'];
@@ -175,13 +164,13 @@ class PackageUrlParserTest extends TestCase
     /**
      * @psalm-return Generator<non-empty-string, array{string, array<string, string>}>
      */
-    public static function dpStringsToDecoded(): \Generator
+    public static function dpStringsToDecoded(): Generator
     {
         yield 'some string' => ['someString', 'someString'];
         yield 'encoded string' => ['some%20%22encoded%22%20string', 'some "encoded" string'];
     }
 
-    public static function dpNormalizeQualifiers(): \Generator
+    public static function dpNormalizeQualifiers(): Generator
     {
         yield 'null' => [null, [null, null]];
         yield 'empty' => ['', [null, null]];
@@ -197,7 +186,7 @@ class PackageUrlParserTest extends TestCase
     /**
      * @psalm-return Generator<non-empty-string, array{string, string}>
      */
-    public static function dpNormalizeSubpath(): \Generator
+    public static function dpNormalizeSubpath(): Generator
     {
         yield 'dot' => ['.', null];
         yield 'dot dot' => ['..', null];

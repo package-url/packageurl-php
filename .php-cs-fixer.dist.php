@@ -36,20 +36,41 @@ $finder = PhpCsFixer\Finder::create()
     ->append([__FILE__])
 ;
 
-$config = new PhpCsFixer\Config();
-
-return $config
+return (new PhpCsFixer\Config())
     ->setUsingCache(true)
-    ->setRules([
-        '@autoPHPMigration' => true,
-        '@autoPHPMigration:risky' => true,
-        '@Symfony' => true,
-        '@Symfony:risky' => true,
-        'declare_strict_types' => true,
-        'phpdoc_order' => true,
-        'header_comment' => ['header' => $header],
-        'trailing_comma_in_multiline' => ['after_heredoc' => true], // for php73 compat
-    ])
+    ->setRules(
+        /* docs: https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/doc/rules/index.rst
+         * docs: https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst
+         * assistance via tool: https://mlocati.github.io/php-cs-fixer-configurator/
+         */
+        [
+            // region migrate
+            // lowest supported PHP
+            '@autoPHPMigration:risky' => true,
+            '@autoPHPMigration' => true,
+            // endregion migrate
+            // region general code style
+            '@Symfony' => true,
+            '@Symfony:risky' => true,
+            // endregion general code style
+            // lowest supported Phpunit
+            '@autoPHPUnitMigration:risky' => true,
+            // endregion migrate
+            // region customs
+            'declare_strict_types' => true,
+            'header_comment' => ['header' => $header],
+            'global_namespace_import' => true,
+            'fopen_flags' => ['b_mode' => true],
+            'phpdoc_order' => true,
+            'phpdoc_to_comment' => [
+                'ignored_tags' => [
+                    // needed when PSALM introduced some issues that only manual hints can solve
+                    'psalm-var',
+                    'psalm-suppress',
+                ],
+            ],
+            // endregion customs
+        ]
+    )
     ->setRiskyAllowed(true)
-    ->setFinder($finder)
-;
+    ->setFinder($finder);

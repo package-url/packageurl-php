@@ -56,6 +56,7 @@ class PackageUrlParser
      * Normalization/decoding is done with other methods from this class.
      *
      * @psalm-return array{
+     *      scheme: string|null,
      *      type: string|null,
      *      namespace: string|null,
      *      name: string|null,
@@ -237,6 +238,7 @@ class PackageUrlParser
             $qualifiers[$key] = $value;
         }
 
+        /** @psalm-suppress RiskyTruthyFalsyComparison */
         $checksums = empty($qualifiers[PackageUrl::QUALIFIER_CHECKSUM])
             ? null
             : explode(',', $qualifiers[PackageUrl::QUALIFIER_CHECKSUM]);

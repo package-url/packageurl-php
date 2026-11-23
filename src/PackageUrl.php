@@ -29,6 +29,8 @@ declare(strict_types=1);
 
 namespace PackageUrl;
 
+use DomainException;
+
 /**
  * A purl is a package URL as defined at
  * {@link https://github.com/package-url/purl-spec}.
@@ -45,7 +47,7 @@ namespace PackageUrl;
  */
 class PackageUrl
 {
-    public const SCHEME = 'pkg';
+    public const string SCHEME = 'pkg';
 
     // region known qualifiers
     /*
@@ -63,36 +65,36 @@ class PackageUrl
      * When a package does not come from the default public package repository for its type a purl may be qualified with this extra URL.
      * The default repository or registry of a type is documented in the {@link https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst "Known purl types" section}.
      */
-    public const QUALIFIER_REPOSITORY_URL = 'repository_url';
+    public const string QUALIFIER_REPOSITORY_URL = 'repository_url';
 
     /**
      * is an extra URL for a direct package web download URL to optionally qualify a purl.
      */
-    public const QUALIFIER_DOWNLOAD_URL = 'download_url';
+    public const string QUALIFIER_DOWNLOAD_URL = 'download_url';
 
     /**
      * is an extra URL for a package version control system URL to optionally qualify a purl.
      * The syntax for this URL should be as defined in Python pip or the SPDX specification.
      * See {@link https://github.com/spdx/spdx-spec/blob/cfa1b9d08903/chapters/3-package-information.md#37-package-download-location}.
      */
-    public const QUALIFIER_VCS_URL = 'vcs_url';
+    public const string QUALIFIER_VCS_URL = 'vcs_url';
 
     /**
      * is an extra file name of a package archive.
      */
-    public const QUALIFIER_FILE_NAME = 'file_name';
+    public const string QUALIFIER_FILE_NAME = 'file_name';
 
     /**
      * is a qualifier for one or more checksums stored as a comma-separated list.
      * Each item in the value is in form of lowercase_algorithm:hex_encoded_lowercase_value.
      */
-    public const QUALIFIER_CHECKSUM = 'checksum';
+    public const string QUALIFIER_CHECKSUM = 'checksum';
 
     /**
      * @see QUALIFIER_CHECKSUM
      * @deprecated use {@see QUALIFIER_CHECKSUM} instead
      */
-    public const CHECKSUM_QUALIFIER = self::QUALIFIER_CHECKSUM;
+    public const string CHECKSUM_QUALIFIER = self::QUALIFIER_CHECKSUM;
 
     // endregion known qualifiers
 
@@ -146,14 +148,14 @@ class PackageUrl
     }
 
     /**
-     * @throws \DomainException if value is empty
+     * @throws DomainException if value is empty
      *
      * @psalm-return  $this
      */
     public function setType(string $type): self
     {
         if ('' === $type) {
-            throw new \DomainException('Type must not be empty');
+            throw new DomainException('Type must not be empty');
         }
         $this->type = $type;
 
@@ -187,14 +189,14 @@ class PackageUrl
     }
 
     /**
-     * @throws \DomainException if value is empty
+     * @throws DomainException if value is empty
      *
      * @psalm-return $this
      */
     public function setName(string $name): self
     {
         if ('' === $name) {
-            throw new \DomainException('Name must not be empty');
+            throw new DomainException('Name must not be empty');
         }
         $this->name = $name;
 
@@ -230,14 +232,14 @@ class PackageUrl
     /**
      * @psalm-param TQualifiers $qualifiers
      *
-     * @throws \DomainException if checksums are part of the qualifiers. Use setChecksums() to set these.
+     * @throws DomainException if checksums are part of the qualifiers. Use setChecksums() to set these.
      *
      * @psalm-return $this
      */
     public function setQualifiers(?array $qualifiers): self
     {
         if ($qualifiers && \array_key_exists(self::QUALIFIER_CHECKSUM, $qualifiers)) {
-            throw new \DomainException('Checksums must not be part of the qualifiers. Use setChecksums().');
+            throw new DomainException('Checksums must not be part of the qualifiers. Use setChecksums().');
         }
         $this->qualifiers = $qualifiers;
 
@@ -259,7 +261,10 @@ class PackageUrl
      */
     public function setChecksums(?array $checksums): self
     {
-        $this->checksums = null === $checksums ? null : array_values($checksums);
+        /** @psalm-suppress RedundantFunctionCall - we need a copy anyway */
+        $this->checksums = null === $checksums
+            ? null
+            : array_values($checksums);
 
         return $this;
     }
@@ -285,7 +290,7 @@ class PackageUrl
     // endregion getters/setters
 
     /**
-     * @throws \DomainException if a value was invalid
+     * @throws DomainException if a value was invalid
      *
      * @see settype()
      * @see setName()
@@ -332,7 +337,7 @@ class PackageUrl
     }
 
     /**
-     * @throws \DomainException if the data is invalid according to the specification
+     * @throws DomainException if the data is invalid according to the specification
      *
      * @psalm-return static|null null when empty string is passed
      */
@@ -355,17 +360,17 @@ class PackageUrl
         ] = $parser->parse($data);
 
         if (self::SCHEME !== $parser->normalizeScheme((string) $scheme)) {
-            throw new \DomainException("Mismatching scheme '{$scheme}'");
+            throw new DomainException("Mismatching scheme '{$scheme}'");
         }
 
         $type = $parser->normalizeType($type);
         if (null === $type) {
-            throw new \DomainException('Type must not be empty');
+            throw new DomainException('Type must not be empty');
         }
 
         $name = $parser->normalizeName($name, $type);
         if (null === $name) {
-            throw new \DomainException('Name must not be empty');
+            throw new DomainException('Name must not be empty');
         }
 
         [$qualifiers, $checksums] = $parser->normalizeQualifiers($qualifiers);
