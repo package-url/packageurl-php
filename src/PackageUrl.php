@@ -261,7 +261,10 @@ class PackageUrl
      */
     public function setChecksums(?array $checksums): self
     {
-        $this->checksums = null === $checksums ? null : array_values($checksums);
+        /** @psalm-suppress RedundantFunctionCall - we need a copy anyway */
+        $this->checksums = null === $checksums
+            ? null
+            : array_values($checksums);
 
         return $this;
     }

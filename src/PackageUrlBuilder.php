@@ -264,7 +264,7 @@ class PackageUrlBuilder
      *
      * @var array<non-empty-string, non-empty-string>
      */
-    private const RAWURLENCODE_REVERT = [
+    private const array RAWURLENCODE_REVERT = [
         '%3A' => ':',
         '%2F' => '/',
     ];
