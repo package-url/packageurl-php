@@ -3,7 +3,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="https://getpsalm.org/schema/config tools/psalm/vendor/vimeo/psalm/config.xsd"
        errorLevel="1"
-       resolveFromConfigFile="true"
        runTaintAnalysis="true"
        checkForThrowsDocblock="true"
        findUnusedPsalmSuppress="true"
