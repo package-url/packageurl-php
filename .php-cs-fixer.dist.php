@@ -66,7 +66,7 @@ return (new PhpCsFixer\Config())
                 'ignored_tags' => [
                     // needed when PSALM introduced some issues that only manual hints can solve
                     'psalm-var',
-                    // 'psalm-suppress',
+                    'psalm-suppress',
                 ],
             ],
             // endregion customs
