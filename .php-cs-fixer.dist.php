@@ -53,9 +53,9 @@ return (new PhpCsFixer\Config())
             '@Symfony' => true,
             '@Symfony:risky' => true,
             // endregion general code style
-            // region phpunit
-            '@PHPUnit10x0Migration:risky' => true,
-            // endregion phpunit
+            // lowest supported Phpunit
+            '@autoPHPUnitMigration:risky' => true,
+            // endregion migrate
             // region customs
             'declare_strict_types' => true,
             'header_comment' => ['header' => $header],
