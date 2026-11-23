@@ -32,10 +32,6 @@
         <include>
             <directory>src</directory>
         </include>
-        <exclude>
-            <!-- who cares for the helpers, they are just helpers. -->
-            <directory>src/Core/_helpers</directory>
-        </exclude>
     </source>
     <coverage>
         <report>
