@@ -47,7 +47,7 @@ use DomainException;
  */
 class PackageUrl
 {
-    public const SCHEME = 'pkg';
+    public const string SCHEME = 'pkg';
 
     // region known qualifiers
     /*
@@ -65,36 +65,36 @@ class PackageUrl
      * When a package does not come from the default public package repository for its type a purl may be qualified with this extra URL.
      * The default repository or registry of a type is documented in the {@link https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst "Known purl types" section}.
      */
-    public const QUALIFIER_REPOSITORY_URL = 'repository_url';
+    public const string QUALIFIER_REPOSITORY_URL = 'repository_url';
 
     /**
      * is an extra URL for a direct package web download URL to optionally qualify a purl.
      */
-    public const QUALIFIER_DOWNLOAD_URL = 'download_url';
+    public const string QUALIFIER_DOWNLOAD_URL = 'download_url';
 
     /**
      * is an extra URL for a package version control system URL to optionally qualify a purl.
      * The syntax for this URL should be as defined in Python pip or the SPDX specification.
      * See {@link https://github.com/spdx/spdx-spec/blob/cfa1b9d08903/chapters/3-package-information.md#37-package-download-location}.
      */
-    public const QUALIFIER_VCS_URL = 'vcs_url';
+    public const string QUALIFIER_VCS_URL = 'vcs_url';
 
     /**
      * is an extra file name of a package archive.
      */
-    public const QUALIFIER_FILE_NAME = 'file_name';
+    public const string QUALIFIER_FILE_NAME = 'file_name';
 
     /**
      * is a qualifier for one or more checksums stored as a comma-separated list.
      * Each item in the value is in form of lowercase_algorithm:hex_encoded_lowercase_value.
      */
-    public const QUALIFIER_CHECKSUM = 'checksum';
+    public const string QUALIFIER_CHECKSUM = 'checksum';
 
     /**
      * @see QUALIFIER_CHECKSUM
      * @deprecated use {@see QUALIFIER_CHECKSUM} instead
      */
-    public const CHECKSUM_QUALIFIER = self::QUALIFIER_CHECKSUM;
+    public const string CHECKSUM_QUALIFIER = self::QUALIFIER_CHECKSUM;
 
     // endregion known qualifiers
 
