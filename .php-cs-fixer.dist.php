@@ -41,7 +41,7 @@ $config = new PhpCsFixer\Config();
 return $config
     ->setUsingCache(true)
     ->setRules([
-        '@PHP83Migration' => true,
+        '@autoPHPMigration' => true,
         '@Symfony' => true,
         '@Symfony:risky' => true,
         'declare_strict_types' => true,
