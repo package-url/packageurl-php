@@ -63,14 +63,10 @@ trait BuildParseTrait
             $type = strtolower($type);
         }
         if (\in_array($type, ['bitbucket', 'deb', 'github', 'golang', 'hex', 'rpm'], true)) {
-            return static function (string $data): string {
-                return strtolower($data);
-            };
+            return static fn (string $data): string => strtolower($data);
         }
 
-        return static function (string $data): string {
-            return $data;
-        };
+        return static fn (string $data): string => $data;
     }
 
     /**

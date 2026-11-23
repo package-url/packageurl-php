@@ -42,6 +42,7 @@ return $config
     ->setUsingCache(true)
     ->setRules([
         '@autoPHPMigration' => true,
+        '@autoPHPMigration:risky' => true,
         '@Symfony' => true,
         '@Symfony:risky' => true,
         'declare_strict_types' => true,
