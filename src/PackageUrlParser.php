@@ -237,10 +237,10 @@ class PackageUrlParser
             $qualifiers[$key] = $value;
         }
 
-        $checksums = empty($qualifiers[PackageUrl::CHECKSUM_QUALIFIER])
+        $checksums = empty($qualifiers[PackageUrl::QUALIFIER_CHECKSUM])
             ? null
-            : explode(',', $qualifiers[PackageUrl::CHECKSUM_QUALIFIER]);
-        unset($qualifiers[PackageUrl::CHECKSUM_QUALIFIER]);
+            : explode(',', $qualifiers[PackageUrl::QUALIFIER_CHECKSUM]);
+        unset($qualifiers[PackageUrl::QUALIFIER_CHECKSUM]);
 
         return empty($qualifiers)
             ? [null, $checksums]

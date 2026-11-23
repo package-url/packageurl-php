@@ -47,7 +47,54 @@ class PackageUrl
 {
     public const SCHEME = 'pkg';
 
-    public const CHECKSUM_QUALIFIER = 'checksum';
+    // region known qualifiers
+    /*
+     * see https://github.com/package-url/purl-spec/blob/master/PURL-SPECIFICATION.rst#known-qualifiers-keyvalue-pairs
+     *
+     * Note: Do not abuse qualifiers: it can be tempting to use many qualifier keys but their usage should be limited to the bare minimum for proper package identification to ensure that a purl stays compact and readable in most cases.
+     *
+     * Additional, separate external attributes stored outside of a purl are the preferred mechanism to convey extra long and optional information such as a download URL, vcs URL or checksums in an API, database or web form.
+     *
+     * With this warning, the known key and value defined here are valid for use in all package types:
+    */
+
+    /**
+     * is an extra URL for an alternative, non-default package repository or registry.
+     * When a package does not come from the default public package repository for its type a purl may be qualified with this extra URL.
+     * The default repository or registry of a type is documented in the {@link https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst "Known purl types" section}.
+     */
+    public const QUALIFIER_REPOSITORY_URL = 'repository_url';
+
+    /**
+     * is an extra URL for a direct package web download URL to optionally qualify a purl.
+     */
+    public const QUALIFIER_DOWNLOAD_URL = 'download_url';
+
+    /**
+     * is an extra URL for a package version control system URL to optionally qualify a purl.
+     * The syntax for this URL should be as defined in Python pip or the SPDX specification.
+     * See {@link https://github.com/spdx/spdx-spec/blob/cfa1b9d08903/chapters/3-package-information.md#37-package-download-location}.
+     */
+    public const QUALIFIER_VCS_URL = 'vcs_url';
+
+    /**
+     * is an extra file name of a package archive.
+     */
+    public const QUALIFIER_FILE_NAME = 'file_name';
+
+    /**
+     * is a qualifier for one or more checksums stored as a comma-separated list.
+     * Each item in the value is in form of lowercase_algorithm:hex_encoded_lowercase_value.
+     */
+    public const QUALIFIER_CHECKSUM = 'checksum';
+
+    /**
+     * @see QUALIFIER_CHECKSUM
+     * @deprecated use {@see QUALIFIER_CHECKSUM} instead
+     */
+    public const CHECKSUM_QUALIFIER = self::QUALIFIER_CHECKSUM;
+
+    // endregion known qualifiers
 
     /**
      * @psalm-var TType
@@ -189,7 +236,7 @@ class PackageUrl
      */
     public function setQualifiers(?array $qualifiers): self
     {
-        if ($qualifiers && \array_key_exists(self::CHECKSUM_QUALIFIER, $qualifiers)) {
+        if ($qualifiers && \array_key_exists(self::QUALIFIER_CHECKSUM, $qualifiers)) {
             throw new \DomainException('Checksums must not be part of the qualifiers. Use setChecksums().');
         }
         $this->qualifiers = $qualifiers;
@@ -271,7 +318,7 @@ class PackageUrl
 
         $qualifiers = $this->qualifiers ?? [];
         if ($this->checksums) {
-            $qualifiers[self::CHECKSUM_QUALIFIER] = $this->checksums;
+            $qualifiers[self::QUALIFIER_CHECKSUM] = $this->checksums;
         }
 
         return $builder->build(

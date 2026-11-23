@@ -170,8 +170,8 @@ class PackageUrlBuilder
 
         $data = array_change_key_case($data, \CASE_LOWER);
 
-        $checksum = $this->normalizeChecksum($data[PackageUrl::CHECKSUM_QUALIFIER] ?? null);
-        unset($data[PackageUrl::CHECKSUM_QUALIFIER]);
+        $checksum = $this->normalizeChecksum($data[PackageUrl::QUALIFIER_CHECKSUM] ?? null);
+        unset($data[PackageUrl::QUALIFIER_CHECKSUM]);
 
         /** @var mixed $value */
         foreach ($data as $key => $value) {
@@ -187,7 +187,7 @@ class PackageUrlBuilder
         }
 
         if (null !== $checksum) {
-            $segments[] = PackageUrl::CHECKSUM_QUALIFIER.'='.$checksum;
+            $segments[] = PackageUrl::QUALIFIER_CHECKSUM.'='.$checksum;
         }
 
         sort($segments, \SORT_STRING);
