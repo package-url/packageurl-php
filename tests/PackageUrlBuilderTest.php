@@ -33,15 +33,18 @@ use DomainException;
 use Generator;
 use PackageUrl\PackageUrlBuilder;
 use PackageUrl\Tests\_data\TestSuiteData;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \PackageUrl\PackageUrlBuilder
  *
  * @psalm-import-type TDataSet from \PackageUrl\Tests\_data\TestSuiteData
  *
  * @author jkowalleck
  */
+#[CoversClass(\PackageUrl\PackageUrlBuilder::class)]
 class PackageUrlBuilderTest extends TestCase
 {
     /** @var PackageUrlBuilder */
@@ -52,9 +55,7 @@ class PackageUrlBuilderTest extends TestCase
         $this->sut = new PackageUrlBuilder();
     }
 
-    /**
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsToLowercase
-     */
+    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsToLowercase')]
     public function testNormalizeType(string $input, string $expectedOutput): void
     {
         $normalized = $this->sut->normalizeType($input);
@@ -62,12 +63,11 @@ class PackageUrlBuilderTest extends TestCase
     }
 
     /**
-     * @dataProvider dpNormalizeNamespace
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::normalizeNamespaceSpecials()
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     *
      * @psalm-param non-empty-string|null $type
      */
+    #[DataProvider('dpNormalizeNamespace')]
+    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'normalizeNamespaceSpecials')]
+    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeNamespace(?string $input, ?string $expectedOutput, string $type = ''): void
     {
         $normalized = $this->sut->normalizeNamespace($input, $type);
@@ -75,11 +75,10 @@ class PackageUrlBuilderTest extends TestCase
     }
 
     /**
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::normalizeNameSpecials
-     * @dataProvider dpStringsToEncoded
-     *
      * @psalm-param non-empty-string|null $type
      */
+    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'normalizeNameSpecials')]
+    #[DataProvider('dpStringsToEncoded')]
     public function testNormalizeName(?string $input, ?string $expectedOutput, string $type = ''): void
     {
         $normalized = $this->sut->normalizeName($input, $type);
@@ -93,30 +92,26 @@ class PackageUrlBuilderTest extends TestCase
         $this->sut->normalizeName('///', '');
     }
 
-    /**
-     * @dataProvider dpStringsToEncoded
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     */
+    #[DataProvider('dpStringsToEncoded')]
+    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeVersion(?string $input, ?string $expectedOutput): void
     {
         $normalized = $this->sut->normalizeVersion($input);
         self::assertSame($expectedOutput, $normalized);
     }
 
-    /**
-     * @dataProvider dpNormalizeQualifiers
-     * @dataProvider dpNormalizeQualifiersChecksum
-     */
+
+    #[DataProvider('dpNormalizeQualifiers')]
+    #[DataProvider('dpNormalizeQualifiersChecksum')]
     public function testNormalizeQualifiers(?array $input, ?string $expectedOutcome): void
     {
         $normalized = $this->sut->normalizeQualifiers($input);
         self::assertSame($expectedOutcome, $normalized);
     }
 
-    /**
-     * @dataProvider dpNormalizeSubpath
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     */
+
+    #[DataProvider('dpNormalizeSubpath')]
+    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeSubpath(?string $input, ?string $expectedOutcome): void
     {
         $decoded = $this->sut->normalizeSubpath($input);
@@ -152,10 +147,10 @@ class PackageUrlBuilderTest extends TestCase
     }
 
     /**
-     * @dataProvider dpValidTestData
      *
      * @psalm-param TDataSet $data
      */
+    #[DataProvider('dpValidTestData')]
     public function testBuild(array $data): void
     {
         $expected = $data['canonical_purl'];

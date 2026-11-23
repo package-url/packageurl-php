@@ -31,15 +31,18 @@ namespace PackageUrl\Tests;
 
 use Generator;
 use PackageUrl\PackageUrlParser;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \PackageUrl\PackageUrlParser
- *
  * @psalm-import-type TDataSet from \PackageUrl\Tests\_data\TestSuiteData
  *
  * @author jkowalleck
  */
+
+#[CoversClass(\PackageUrl\PackageUrlParser::class)]
 class PackageUrlParserTest extends TestCase
 {
     /** @var PackageUrlParser */
@@ -50,20 +53,17 @@ class PackageUrlParserTest extends TestCase
         $this->sut = new PackageUrlParser();
     }
 
-    /**
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsToLowercase
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     */
+    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsToLowercase')]
+    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeScheme(?string $input, ?string $expectedOutput): void
     {
         $normalized = $this->sut->normalizeScheme($input);
         self::assertSame($expectedOutput, $normalized);
     }
 
-    /**
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsToLowercase
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     */
+
+    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsToLowercase')]
+    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeType(?string $input, ?string $expectedOutput): void
     {
         $normalized = $this->sut->normalizeType($input);
@@ -71,12 +71,11 @@ class PackageUrlParserTest extends TestCase
     }
 
     /**
-     * @dataProvider dpNormalizeNamespace
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::normalizeNamespaceSpecials()
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     *
      * @psalm-param non-empty-string|null $type
      */
+    #[DataProvider('dpNormalizeNamespace')]
+    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'normalizeNamespaceSpecials')]
+    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeNamespace(?string $input, ?string $expectedOutput, string $type = ''): void
     {
         $normalized = $this->sut->normalizeNamespace($input, $type);
@@ -84,41 +83,34 @@ class PackageUrlParserTest extends TestCase
     }
 
     /**
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::normalizeNameSpecials
-     * @dataProvider dpStringsToDecoded
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     *
      * @psalm-param non-empty-string|null $type
      */
+    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'normalizeNameSpecials')]
+    #[DataProvider('dpStringsToDecoded')]
+    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeName(?string $input, ?string $expectedOutput, string $type = ''): void
     {
         $normalized = $this->sut->normalizeName($input, $type);
         self::assertSame($expectedOutput, $normalized);
     }
 
-    /**
-     * @dataProvider dpStringsToDecoded
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     */
+    #[DataProvider('dpStringsToDecoded')]
+    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeVersion(?string $input, ?string $expectedOutput): void
     {
         $normalized = $this->sut->normalizeVersion($input);
         self::assertSame($expectedOutput, $normalized);
     }
 
-    /**
-     * @dataProvider dpNormalizeQualifiers
-     */
+    #[DataProvider('dpNormalizeQualifiers')]
     public function testNormalizeQualifiers(?string $input, ?array $expectedQualifiers): void
     {
         $normalized = $this->sut->normalizeQualifiers($input);
         self::assertSame($expectedQualifiers, $normalized);
     }
 
-    /**
-     * @dataProvider dpNormalizeSubpath
-     * @dataProvider \PackageUrl\Tests\_data\MiscProvider::stringsEmptyAndNull
-     */
+    #[DataProvider('dpNormalizeSubpath')]
+    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeSubpath(?string $input, ?string $expectedOutcome): void
     {
         $decoded = $this->sut->normalizeSubpath($input);
@@ -126,10 +118,9 @@ class PackageUrlParserTest extends TestCase
     }
 
     /**
-     * @dataProvider \PackageUrl\Tests\_data\TestSuiteData::data
-     *
      * @psalm-param TDataSet $data
      */
+    #[DataProviderExternal(\PackageUrl\Tests\_data\TestSuiteData::class, 'data')]
     public function testParseAndNormalize(array $data): void
     {
         $expected = [

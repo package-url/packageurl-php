@@ -33,11 +33,10 @@ use DomainException;
 use PackageUrl\PackageUrl;
 use PackageUrl\PackageUrlBuilder;
 use PackageUrl\PackageUrlParser;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \PackageUrl\PackageUrl
- */
+#[CoversClass(\PackageUrl\PackageUrl::class)]
 class PackageUrlTest extends TestCase
 {
     /** @var PackageUrl */
