@@ -56,6 +56,7 @@ class PackageUrlParser
      * Normalization/decoding is done with other methods from this class.
      *
      * @psalm-return array{
+     *      scheme: string|null,
      *      type: string|null,
      *      namespace: string|null,
      *      name: string|null,
