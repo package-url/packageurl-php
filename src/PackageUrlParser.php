@@ -238,6 +238,7 @@ class PackageUrlParser
             $qualifiers[$key] = $value;
         }
 
+        /** @psalm-suppress RiskyTruthyFalsyComparison */
         $checksums = empty($qualifiers[PackageUrl::QUALIFIER_CHECKSUM])
             ? null
             : explode(',', $qualifiers[PackageUrl::QUALIFIER_CHECKSUM]);
