@@ -41,8 +41,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @author jkowalleck
  */
-
-#[CoversClass(\PackageUrl\PackageUrlParser::class)]
+#[CoversClass(PackageUrlParser::class)]
 class PackageUrlParserTest extends TestCase
 {
     /** @var PackageUrlParser */
@@ -53,17 +52,16 @@ class PackageUrlParserTest extends TestCase
         $this->sut = new PackageUrlParser();
     }
 
-    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsToLowercase')]
-    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsToLowercase')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeScheme(?string $input, ?string $expectedOutput): void
     {
         $normalized = $this->sut->normalizeScheme($input);
         self::assertSame($expectedOutput, $normalized);
     }
 
-
-    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsToLowercase')]
-    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsToLowercase')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeType(?string $input, ?string $expectedOutput): void
     {
         $normalized = $this->sut->normalizeType($input);
@@ -74,8 +72,8 @@ class PackageUrlParserTest extends TestCase
      * @psalm-param non-empty-string|null $type
      */
     #[DataProvider('dpNormalizeNamespace')]
-    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'normalizeNamespaceSpecials')]
-    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'normalizeNamespaceSpecials')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeNamespace(?string $input, ?string $expectedOutput, string $type = ''): void
     {
         $normalized = $this->sut->normalizeNamespace($input, $type);
@@ -85,9 +83,9 @@ class PackageUrlParserTest extends TestCase
     /**
      * @psalm-param non-empty-string|null $type
      */
-    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'normalizeNameSpecials')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'normalizeNameSpecials')]
     #[DataProvider('dpStringsToDecoded')]
-    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeName(?string $input, ?string $expectedOutput, string $type = ''): void
     {
         $normalized = $this->sut->normalizeName($input, $type);
@@ -95,7 +93,7 @@ class PackageUrlParserTest extends TestCase
     }
 
     #[DataProvider('dpStringsToDecoded')]
-    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeVersion(?string $input, ?string $expectedOutput): void
     {
         $normalized = $this->sut->normalizeVersion($input);
@@ -110,7 +108,7 @@ class PackageUrlParserTest extends TestCase
     }
 
     #[DataProvider('dpNormalizeSubpath')]
-    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeSubpath(?string $input, ?string $expectedOutcome): void
     {
         $decoded = $this->sut->normalizeSubpath($input);
@@ -120,7 +118,7 @@ class PackageUrlParserTest extends TestCase
     /**
      * @psalm-param TDataSet $data
      */
-    #[DataProviderExternal(\PackageUrl\Tests\_data\TestSuiteData::class, 'data')]
+    #[DataProviderExternal(_data\TestSuiteData::class, 'data')]
     public function testParseAndNormalize(array $data): void
     {
         $expected = [

@@ -39,12 +39,11 @@ use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\TestCase;
 
 /**
- *
  * @psalm-import-type TDataSet from \PackageUrl\Tests\_data\TestSuiteData
  *
  * @author jkowalleck
  */
-#[CoversClass(\PackageUrl\PackageUrlBuilder::class)]
+#[CoversClass(PackageUrlBuilder::class)]
 class PackageUrlBuilderTest extends TestCase
 {
     /** @var PackageUrlBuilder */
@@ -55,7 +54,7 @@ class PackageUrlBuilderTest extends TestCase
         $this->sut = new PackageUrlBuilder();
     }
 
-    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsToLowercase')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsToLowercase')]
     public function testNormalizeType(string $input, string $expectedOutput): void
     {
         $normalized = $this->sut->normalizeType($input);
@@ -66,8 +65,8 @@ class PackageUrlBuilderTest extends TestCase
      * @psalm-param non-empty-string|null $type
      */
     #[DataProvider('dpNormalizeNamespace')]
-    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'normalizeNamespaceSpecials')]
-    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'normalizeNamespaceSpecials')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeNamespace(?string $input, ?string $expectedOutput, string $type = ''): void
     {
         $normalized = $this->sut->normalizeNamespace($input, $type);
@@ -77,7 +76,7 @@ class PackageUrlBuilderTest extends TestCase
     /**
      * @psalm-param non-empty-string|null $type
      */
-    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'normalizeNameSpecials')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'normalizeNameSpecials')]
     #[DataProvider('dpStringsToEncoded')]
     public function testNormalizeName(?string $input, ?string $expectedOutput, string $type = ''): void
     {
@@ -93,13 +92,12 @@ class PackageUrlBuilderTest extends TestCase
     }
 
     #[DataProvider('dpStringsToEncoded')]
-    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeVersion(?string $input, ?string $expectedOutput): void
     {
         $normalized = $this->sut->normalizeVersion($input);
         self::assertSame($expectedOutput, $normalized);
     }
-
 
     #[DataProvider('dpNormalizeQualifiers')]
     #[DataProvider('dpNormalizeQualifiersChecksum')]
@@ -109,9 +107,8 @@ class PackageUrlBuilderTest extends TestCase
         self::assertSame($expectedOutcome, $normalized);
     }
 
-
     #[DataProvider('dpNormalizeSubpath')]
-    #[DataProviderExternal(\PackageUrl\Tests\_data\MiscProvider::class, 'stringsEmptyAndNull')]
+    #[DataProviderExternal(_data\MiscProvider::class, 'stringsEmptyAndNull')]
     public function testNormalizeSubpath(?string $input, ?string $expectedOutcome): void
     {
         $decoded = $this->sut->normalizeSubpath($input);
@@ -147,7 +144,6 @@ class PackageUrlBuilderTest extends TestCase
     }
 
     /**
-     *
      * @psalm-param TDataSet $data
      */
     #[DataProvider('dpValidTestData')]

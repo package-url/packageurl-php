@@ -36,7 +36,7 @@ use PackageUrl\PackageUrlParser;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\PackageUrl\PackageUrl::class)]
+#[CoversClass(PackageUrl::class)]
 class PackageUrlTest extends TestCase
 {
     /** @var PackageUrl */
