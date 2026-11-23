@@ -66,12 +66,10 @@ jobs:
       - name: Validate composer.json and composer.lock
         run: >
           composer validate
-          --no-interaction
       - name: Install dependencies
         run: >
           composer install
           --prefer-dist
-          --no-interaction
           --no-progress
           --no-suggest
       - name: Run PHPUnit tests
@@ -86,7 +84,6 @@ jobs:
           vendor/phpunit/phpunit/phpunit
           --log-junit=${{ env.REPORTS_DIR }}/tests.${{ matrix.os }}_php${{ matrix.php }}.junit.xml
           --coverage-clover=${{ env.REPORTS_DIR }}/coverage.${{ matrix.os}}_php${{ matrix.php }}.clover.xml
-          --no-interaction
           --do-not-cache-result
       - name: Artifact reports
         if: ${{ ! cancelled() }}
@@ -128,7 +125,6 @@ jobs:
         run: >
           composer install
           --prefer-dist
-          --no-interaction
           --no-progress
           --no-suggest
         working-directory: tools/psalm
@@ -138,7 +134,6 @@ jobs:
           composer install
           --no-dev
           --prefer-dist
-          --no-interaction
           --no-progress
           --no-suggest
       - name: Run Psalm tests
@@ -180,7 +175,6 @@ jobs:
         run: >
           composer install
           --prefer-dist
-          --no-interaction
           --no-progress
           --no-suggest
         working-directory: tools/php-cs-fixer
@@ -189,7 +183,6 @@ jobs:
           composer install
           --no-dev
           --prefer-dist
-          --no-interaction
           --no-progress
           --no-suggest
       - name: Run PHP-CS-Fixer tests
@@ -200,7 +193,6 @@ jobs:
           --diff
           --using-cache=no
           --show-progress=dots
-          --no-interaction
   composer-require-checker:
     name: ComposerRequireChecker
     runs-on: ubuntu-latest
@@ -224,7 +216,6 @@ jobs:
         run: >
           composer install
           --prefer-dist
-          --no-interaction
           --no-progress
           --no-suggest
         working-directory: tools/composer-require-checker
@@ -233,13 +224,11 @@ jobs:
           composer install
           --no-dev
           --prefer-dist
-          --no-interaction
           --no-progress
           --no-suggest
       - name: Run composer-require-checker tests
         run: >
           php tools/composer-require-checker/vendor/maglnet/composer-require-checker/bin/composer-require-checker
-          --no-interaction
   composer-unused:
     name: ComposerUnused
     runs-on: ubuntu-latest
@@ -263,7 +252,6 @@ jobs:
         run: >
           composer install
           --prefer-dist
-          --no-interaction
           --no-progress
           --no-suggest
         working-directory: tools/composer-unused
@@ -272,14 +260,12 @@ jobs:
           composer install
           --no-dev
           --prefer-dist
-          --no-interaction
           --no-progress
           --no-suggest
       - name: Run composer-unused tests
         run: >
           php tools/composer-unused/vendor/icanhazstring/composer-unused/bin/composer-unused
           --no-progress
-          --no-interaction
   composer-normalize:
     name: Composer normalize
     runs-on: ubuntu-latest
@@ -303,7 +289,6 @@ jobs:
         run: >
           composer install
           --prefer-dist
-          --no-interaction
           --no-progress
           --no-suggest
         working-directory: tools/composer-normalize
@@ -315,5 +300,4 @@ jobs:
           --diff
           --no-check-lock
           --no-update-lock
-          --no-interaction
           $PWD/composer.json
