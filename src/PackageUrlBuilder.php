@@ -29,6 +29,8 @@ declare(strict_types=1);
 
 namespace PackageUrl;
 
+use DomainException;
+
 /**
  * @internal this is not guaranteed to stay backwards compatible
  *
@@ -48,8 +50,8 @@ class PackageUrlBuilder
      * @psalm-param mixed[]|null $qualifiers can handle "checksum" as string or list of strings.
      * @psalm-param string|null $subpath
      *
-     * @throws \DomainException if type is empty
-     * @throws \DomainException if name is empty
+     * @throws DomainException if type is empty
+     * @throws DomainException if name is empty
      *
      * @psalm-return non-empty-string
      */
@@ -59,13 +61,13 @@ class PackageUrlBuilder
         string $name,
         ?string $version,
         ?array $qualifiers,
-        ?string $subpath
+        ?string $subpath,
     ): string {
         if ('' === $type) {
-            throw new \DomainException('Type must not be empty');
+            throw new DomainException('Type must not be empty');
         }
         if ('' === $name) {
-            throw new \DomainException('Name must not be empty');
+            throw new DomainException('Name must not be empty');
         }
 
         $type = $this->normalizeType($type);
@@ -126,13 +128,13 @@ class PackageUrlBuilder
      * @psalm-param string $data
      * @psalm-param non-empty-string $type
      *
-     * @throws \DomainException if name is empty
+     * @throws DomainException if name is empty
      */
     public function normalizeName(string $data, string $type): string
     {
         $data = trim($data, '/');
         if ('' === $data) {
-            throw new \DomainException('name must not be empty');
+            throw new DomainException('name must not be empty');
         }
         $data = $this->normalizeNameForType($data, $type);
 
