@@ -8,4 +8,4 @@
 
 ## Reporting a Vulnerability
 
-Open an issue.
+Open an issue: <https://github.com/package-url/packageurl-php/issues>
