@@ -19,6 +19,10 @@ concurrency:
 
 permissions: { }
 
+defaults:
+  run:
+    shell: bash
+
 env:
   PHP_VERSION_LATEST: '8.5'
 
