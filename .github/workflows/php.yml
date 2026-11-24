@@ -19,12 +19,16 @@ concurrency:
 
 permissions: { }
 
+defaults:
+  run:
+    shell: bash
+
 env:
   PHP_VERSION_LATEST: '8.5'
 
 jobs:
   tests:
-    name: php${{ matrix.php }} ${{ matrix.os }}
+    name: php${{ matrix.php-version }} ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     env:
       REPORTS_DIR: CI_reports
@@ -33,17 +37,17 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest ]
-        php:
+        php-version:
           - '8.5' # highest supported
           - '8.4'
           - '8.3' # lowest supported
         include:
           - # highest supported Windows
             os: windows-latest
-            php: '8.5' # highest supported
+            php-version: '8.5' # highest supported
           - # highest supported macOS
             os: macos-latest
-            php: '8.5'
+            php-version: '8.5'
     timeout-minutes: 30
     steps:
       - name: Checkout
@@ -55,14 +59,14 @@ jobs:
         # see https://github.com/shivammathur/setup-php
         uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
-          php-version: ${{ matrix.php }}
+          php-version: ${{ matrix.php-version }}
           extensions: json
           tools: composer:v2
           coverage: pcov
         env:
           update: true
       - name: dir setup
-        run: mkdir ${{ env.REPORTS_DIR }}
+        run: mkdir -p "$REPORTS_DIR"
       - name: Validate composer.json and composer.lock
         run: >
           composer validate
@@ -73,6 +77,9 @@ jobs:
           --no-progress
           --no-suggest
       - name: Run PHPUnit tests
+        env:
+          OS: ${{ matrix.os }}
+          PHP_VERSION: ${{ matrix.php-version }}
         run: >
           php
           -d zend.assertions=1 -d assert.exception=1
@@ -83,14 +90,14 @@ jobs:
           -d pcov.enabled=1 -d pcov.directory=src
           vendor/phpunit/phpunit/phpunit
           --no-progress
-          --log-junit='${{ env.REPORTS_DIR }}/tests.${{ matrix.os }}_php${{ matrix.php }}.junit.xml'
-          --coverage-clover='${{ env.REPORTS_DIR }}/coverage.${{ matrix.os}}_php${{ matrix.php }}.clover.xml'
+          --log-junit="${REPORTS_DIR}/tests.${OS}_php${PHP_VERSION}.junit.xml"
+          --coverage-clover="${REPORTS_DIR}/coverage.${OS}_php${PHP_VERSION}.clover.xml"
       - name: Artifact reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: '${{ env.REPORTS_ARTIFACT }}_PHPUnit_php${{ matrix.php }}_${{ matrix.os }}'
+          name: '${{ env.REPORTS_ARTIFACT }}_PHPUnit_php${{ matrix.php-version }}_${{ matrix.os }}'
           path: ${{ env.REPORTS_DIR }}
           if-no-files-found: error
   code-checker:
@@ -136,13 +143,17 @@ jobs:
           --no-progress
           --no-suggest
       - name: Run Psalm tests
+        env:
+          PHP_VERSION: ${{ matrix.php-version }}
         run: >
           php tools/psalm/vendor/vimeo/psalm/psalm
-          --php-version=${{ matrix.php-version }}
           --no-diff
           --no-cache
           --long-progress
-          --report=${{ env.REPORTS_DIR }}/psalm.php${{ matrix.php-version }}.junit.xml
+          --output-format=github
+          --report="${REPORTS_DIR}/psalm.php${PHP_VERSION}.junit.xml"
+          --stats
+          --shepherd
       - name: Artifact reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact
@@ -187,11 +198,11 @@ jobs:
       - name: Run PHP-CS-Fixer tests
         run: >
           php tools/php-cs-fixer/vendor/friendsofphp/php-cs-fixer/php-cs-fixer
-          fix
-          --dry-run
+          check
           --diff
           --using-cache=no
           --show-progress=dots
+          --no-interaction
   composer-require-checker:
     name: ComposerRequireChecker
     runs-on: ubuntu-latest
@@ -228,6 +239,7 @@ jobs:
       - name: Run composer-require-checker tests
         run: >
           php tools/composer-require-checker/vendor/maglnet/composer-require-checker/bin/composer-require-checker
+          --no-interaction
   composer-unused:
     name: ComposerUnused
     runs-on: ubuntu-latest
@@ -265,6 +277,8 @@ jobs:
         run: >
           php tools/composer-unused/vendor/icanhazstring/composer-unused/bin/composer-unused
           --no-progress
+          --no-interaction
+          --excludeDir=tools
   composer-normalize:
     name: Composer normalize
     runs-on: ubuntu-latest
@@ -299,4 +313,5 @@ jobs:
           --diff
           --no-check-lock
           --no-update-lock
-          $PWD/composer.json
+          --no-interaction
+          "$PWD/composer.json"
