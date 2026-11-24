@@ -142,7 +142,10 @@ jobs:
           --no-diff
           --no-cache
           --long-progress
+          --output-format=github
           --report=${{ env.REPORTS_DIR }}/psalm.php${{ matrix.php-version }}.junit.xml
+          --stats
+          --shepherd
       - name: Artifact reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact
