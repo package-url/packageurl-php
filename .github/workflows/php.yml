@@ -116,7 +116,7 @@ jobs:
         # see https://github.com/shivammathur/setup-php
         uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
-          php-version: ${{ env.PHP_VERSION_LATEST }}
+          php-version: ${{ matrix.php-version }}
           tools: composer:v2
           coverage: none
         env:
@@ -138,7 +138,6 @@ jobs:
       - name: Run Psalm tests
         run: >
           php tools/psalm/vendor/vimeo/psalm/psalm
-          --php-version=${{ matrix.php-version }}
           --no-diff
           --no-cache
           --long-progress

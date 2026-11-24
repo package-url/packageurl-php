@@ -3,7 +3,7 @@
     "description": "psalm and plugins",
     "type": "metapackage",
     "require": {
-        "php": "^8.5"
+        "php": "^8.3"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
