@@ -4,6 +4,8 @@
 
 <!-- new unreleased items here -->
 
+## 2.0.0 - 2026-11-06
+
 * BREAKING change
   * Removed support for PHP < 8.3 ([#36], [#289] via [#291], [#292])
 * Added
