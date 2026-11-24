@@ -23,6 +23,7 @@
 /phpmd.*                export-ignore
 /phpunit.*              export-ignore
 /psalm.*                export-ignore
+/renovate.*             export-ignore
 
 # files that are forced to be exported in "dist" release
 /README.*               -export-ignore
