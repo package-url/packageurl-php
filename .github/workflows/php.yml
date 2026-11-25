@@ -24,7 +24,7 @@ defaults:
     shell: bash
 
 env:
-  PHP_VERSION_LATEST: '8.5'
+  PHP_VERSION_LATEST: '8.6'
 
 jobs:
   tests:
@@ -38,16 +38,17 @@ jobs:
       matrix:
         os: [ ubuntu-latest ]
         php-version:
-          - '8.5' # highest supported
+          - '8.6' # highest supported
+          - '8.5'
           - '8.4'
           - '8.3' # lowest supported
         include:
           - # highest supported Windows
             os: windows-latest
-            php-version: '8.5' # highest supported
+            php-version: '8.6' # highest supported
           - # highest supported macOS
             os: macos-latest
-            php-version: '8.5'
+            php-version: '8.6'
     timeout-minutes: 30
     steps:
       - name: Checkout
@@ -111,7 +112,7 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - '8.5' # highest supported
+          - '8.6' # highest supported
           - '8.3' # lowest supported
     steps:
       - name: Checkout
