@@ -24,7 +24,7 @@ defaults:
     shell: bash
 
 env:
-  PHP_VERSION_LATEST: '8.6'
+  PHP_VERSION_LATEST: '8.5'
 
 jobs:
   tests:
