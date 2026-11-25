@@ -4,6 +4,11 @@
 
 <!-- new unreleased items here -->
 
+* Added
+  * Support PHP 8.6 ([#307] via [#)
+
+[#307]: https://github.com/package-url/packageurl-php/issues/307
+
 ## 2.0.0 - 2026-11-24
 
 * BREAKING change
