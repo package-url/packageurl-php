@@ -4,6 +4,8 @@
 
 <!-- new unreleased items here -->
 
+## 2.1.0 - 2026-11-25
+
 * Added
   * Support PHP 8.6 ([#307] via [#308])
 
